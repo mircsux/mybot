@@ -2,28 +2,6 @@
 
 #include "includes.h"
 
-/* Send data over socket fd */
-int		recv_data		(int sockfd, char *reply)
-{
-	if (recv (sockfd, reply, STRING_LONG, 0) < 0)
-	{
-		printf ("receive failed");
-	}
-	
-	printf ("data = %i, %s\n", sockfd, reply);
-	return (0);
-}
-
-int		send_data		(int sockfd, char *stuff)
-{
-	if (send (sockfd, stuff, strlen (stuff), 0) < 0)
-	{
-		printf ("Send failed.\n");
-		return (1);
-	}
-	
-	printf ("data send: %i, %s, %i\n", sockfd, stuff, strlen (stuff));
-}		
 
 void	parse_message 	(int sockfd, char *line, fd_set *read_fds)
 {
@@ -72,7 +50,7 @@ prepare_bot ()
 	{
 		/* Load servers here */
 		
-		printf (".: Connecting to %s:%ld\t\r", HOSTNAME, PORT);
+		printf (".: Connecting to %s:%d\t\r", HOSTNAME, PORT);
 		fflush (stdout);
 		sleep (2);
 
