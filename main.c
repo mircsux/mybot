@@ -59,42 +59,9 @@ int			main			(int argc, char **argv)
 		exit	(EXIT_FAILURE);
 	}
 
-	// Create socket.
-	sockfd = socket (AF_INET, SOCK_STREAM, 0);
-
-    if (sockfd == -1)
-	{	
-		printf ("Could not create socket.\n");
-	}
-	/* Get the IP for our connect host. */
-	if ((he = gethostbyname (hostname)) == NULL)
-	{
-		/* gethostbyname failure. */
-		herror ("gethostbyname");
-		return (1);
-	}
 	
-	 /* Cast the h_addr_list to in_addr , since h_addr_list also has the ip address in long format only */
-    addr_list = (struct in_addr **) he->h_addr_list;
-	for (i = 0; addr_list[i] != NULL; i++)
-	{
-		/* return the first one. */
-		strcpy (ip, inet_ntoa (*addr_list[i]));
-	}
-	
-	server.sin_addr.s_addr = inet_addr (ip);
-	server.sin_family = AF_INET;
-	server.sin_port = htons (port);
-	
-	// Connect to remote server
-	if (connect (sockfd, (struct sockaddr *)&server, sizeof (server)) <0)
-	{
-		printf ("Error connecting.\n");
-		return (1);
-	}
-
-	printf ("Connected.\n");
-
+	send_data(sockfd, "NICK mybot\n");
+			
 	while (1)
 	{
 		timeout.tv_sec = WSEC;

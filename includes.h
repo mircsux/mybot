@@ -11,8 +11,10 @@
 #include	<stdio.h>
 #include	<sys/socket.h>
 #include 	<arpa/inet.h>
+#include 	<sys/time.h>
 #include	<netdb.h>
 #include	<fcntl.h>
+#include 	<unistd.h>
 
 #include	"prototypes.h"
 #include	"defines.h"
