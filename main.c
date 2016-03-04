@@ -52,6 +52,7 @@ int			main			(int argc, char **argv)
 	}
 
 	prepare_bot ();
+	register_bot ();
 	
 	while (1)
 	{

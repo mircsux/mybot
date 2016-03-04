@@ -1,5 +1,5 @@
 ACLOCAL_AMFLAGS =
-AM_CFLAGS = -g -Wall
+AM_CFLAGS = -g -Wall -DDEBUG
 
 bin_PROGRAMS = mybot
 mybot_SOURCES = main.c sockets.c vars.c random.c signals.c \

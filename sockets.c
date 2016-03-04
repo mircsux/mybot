@@ -182,8 +182,8 @@ Snow (const char *format, ...)
 int		register_bot		()
 {
 	get_sendq_count (1);
-	S ("NICK mybot\n");
-	S ("USER mybot %d %d :%s", time(NULL), time(NULL), PACKAGE_VERSION);
+	Snow ("NICK mybot\n");
+	Snow ("USER mybot %d %d :%s\n", time(NULL), time(NULL), PACKAGE_VERSION);
 }
 
 int

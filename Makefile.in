@@ -256,7 +256,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = 
-AM_CFLAGS = -g -Wall
+AM_CFLAGS = -g -Wall -DDEBUG
 mybot_SOURCES = main.c sockets.c vars.c random.c signals.c \
 		sendq.c server_cmds.c
 
