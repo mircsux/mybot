@@ -8,7 +8,7 @@ int		send_data			(int, char *);
 
 char	*	readln			(int, char *);
 
-void	prepare_bot			(int, char *, char *);
+void	prepare_bot			();
 void	sig_alrm			(int);
 void	sig_hup				(int);
 void	sig_segv			(int);

@@ -58,7 +58,7 @@ char	*readln 	(int sockfd, char *line)
 }
 
 void
-prepare_bot (int sockfd, char *BS, char *BP)
+prepare_bot ()
 {
 	int esc = 0;
 
@@ -66,23 +66,23 @@ prepare_bot (int sockfd, char *BS, char *BP)
 	{
 		/* Load servers here */
 		
-		printf (".: Connecting to %s:%ld\t\r", BS, BP);
+		printf (".: Connecting to %s:%ld\t\r", HOSTNAME, PORT);
 		fflush (stdout);
 		sleep (2);
 
-		sockfd = create_connection (BS, VHOST, BP);
+		sockfd = create_connection (HOSTNAME, VHOST, PORT);
 
 		switch (sockfd)
 		{
 
 			case ERR_TIMED_OUT:
-				printf (".: Connection to %s:%ld timed out!\t\r", BS, BP);
+				printf (".: Connection to %s:%ld timed out!\t\r", HOSTNAME, PORT);
 				fflush (stdout);
 				sleep (2);
 				break;
 
 			case ERR_CONN_REFUSED:
-				printf (".: Connection to %s:%ld was refused!\t\r", BS, BP);
+				printf (".: Connection to %s:%ld was refused!\t\r", HOSTNAME, PORT);
 				fflush (stdout);
 				sleep (2);
 				break;
@@ -98,7 +98,7 @@ prepare_bot (int sockfd, char *BS, char *BP)
 			default:
 				esc = 1;
 				printf
-					(".: Connected to %s:%ld! [%ld]\t\r", BS, BP, (long) getpid ());
+					(".: Connected to %s:%ld! [%ld]\t\r", HOSTNAME, PORT, (long) getpid ());
 
 				fflush (stdout);
 				sleep (5);

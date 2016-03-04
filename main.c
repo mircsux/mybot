@@ -7,19 +7,14 @@ int			main			(int argc, char **argv)
 {
 	FILE	*fp = NULL;
 
-	int		errcode = 0, sockfd = 0, i = 0;
+	int		errcode = 0, i = 0;
 	
-	char	*hostname = "localhost";
 	char	ip 			[100] = { "0" };
 	char	REPLY_LINE	[STRING_LONG] = { "0" };
-	int	port 		= 6667;
 	
 	fd_set	fdvar;
-		
-	struct	hostent 	*he;
-	struct	in_addr 	**addr_list;
-	struct 	sockaddr_in server;
-	struct 	timeval 	timeout;
+	struct	timeval		timeout;
+	
 #ifdef		SA_NOCLDSTOP
 	struct	sigaction	newact;
 #endif
@@ -49,9 +44,6 @@ int			main			(int argc, char **argv)
 
 	printf ("[*** Ron's IRC Bot %s ***]\r\n", PACKAGE_VERSION);
 
-	printf ("\n");
-	printf ("Connecting to %s\n", hostname);
-	
 	/* Open the past results file. */
 	if	((fp = fopen (PAST_RESULT_FILE, "r")) == NULL)
 	{
@@ -59,6 +51,7 @@ int			main			(int argc, char **argv)
 		exit	(EXIT_FAILURE);
 	}
 
+	prepare_bot ();
 	
 	send_data(sockfd, "NICK mybot\n");
 			
