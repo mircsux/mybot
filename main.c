@@ -7,9 +7,6 @@ int			main			(int argc, char **argv)
 {
 	FILE	*fp = NULL;
 
-	int		errcode = 0, i = 0;
-	
-	char	ip 			[100] = { "0" };
 	char	REPLY_LINE	[STRING_LONG] = { "0" };
 	
 	fd_set	fdvar;

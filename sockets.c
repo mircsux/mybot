@@ -48,8 +48,7 @@ prepare_bot ()
 
 	while (!esc)
 	{
-		/* Load servers here */
-		
+	
 		printf (".: Connecting to %s:%d\t\r", HOSTNAME, PORT);
 		fflush (stdout);
 		sleep (2);
@@ -162,6 +161,8 @@ int		register_bot		()
 	get_sendq_count (1);
 	Snow ("NICK mybot\n");
 	Snow ("USER mybot %d %d :%s\n", time(NULL), time(NULL), PACKAGE_VERSION);
+
+	return (1);
 }
 
 int

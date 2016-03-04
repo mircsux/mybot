@@ -6,6 +6,7 @@ int		main				(int, char **);
 int		recv_data			(int, char *);
 int		send_data			(int, char *);
 int		writeln				(const char *);
+int		register_bot		();
 int		get_sendq_count 	(long);
 int		Snow 				(const char *, ...);
 
