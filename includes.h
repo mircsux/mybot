@@ -8,6 +8,7 @@
 #include	<signal.h>
 #include	<string.h>
 #include	<stdlib.h>
+#include	<stdarg.h>
 #include	<stdio.h>
 #include	<sys/socket.h>
 #include 	<arpa/inet.h>
@@ -16,7 +17,7 @@
 #include	<fcntl.h>
 #include 	<unistd.h>
 
-#include	"prototypes.h"
 #include	"defines.h"
 #include	"vars.h"
+#include	"prototypes.h"
 

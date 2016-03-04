@@ -57,6 +57,12 @@ char	*readln 	(int sockfd, char *line)
 	return (line);
 }
 
+int
+writeln (const char *b)
+{
+	return (write (sockfd, b, strlen (b)) < 0) ? 0 : 1;
+}
+
 void
 prepare_bot ()
 {
@@ -113,6 +119,53 @@ prepare_bot ()
 		perror ("fcntl");
 		exit (EXIT_FAILURE);
 	}
+}
+
+void
+S (const char *format, ...)
+{
+	va_list arglist;
+	char b[STRING_LONG] = { 0 };
+	struct sendq *n = 0;
+
+	va_start (arglist, format);
+	vsprintf (b, format, arglist);
+	va_end (arglist);
+
+	if (send_tog == 0)
+	{
+		send_tog = 1;
+#ifdef	DEBUG
+			printf ("OUT: %s\n", b);
+#endif
+		writeln (b);
+		return;
+	}
+
+	n = malloc (sizeof (struct sendq));
+	if (n == NULL)
+	{
+		/* db_log ("error.log", "AHH! no ram left! in S!\n"); */
+		return;
+	}
+
+	memset (n, 0, sizeof (struct sendq));
+	strncpy (n->data, b, sizeof (n->data));
+
+	if (sendqhead == NULL)
+	{
+		sendqhead = sendqtail = n;
+	}
+	else
+	{
+		sendqtail->next = n;
+		sendqtail = sendqtail->next;
+	}
+}
+
+int		register_bot		()
+{
+
 }
 
 int

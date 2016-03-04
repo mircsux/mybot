@@ -28,4 +28,5 @@
 # define EXIT_FAILURE 1
 #endif
 
-#define	STRING_LONG		8096
+#define	STRING_LONG		4096
+#define STRING_SHORT	512

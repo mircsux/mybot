@@ -53,8 +53,6 @@ int			main			(int argc, char **argv)
 
 	prepare_bot ();
 	
-	send_data(sockfd, "NICK mybot\n");
-			
 	while (1)
 	{
 		timeout.tv_sec = WSEC;

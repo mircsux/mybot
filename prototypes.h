@@ -5,6 +5,7 @@ int		get_random_number	(int);
 int		main				(int, char **);
 int		recv_data			(int, char *);
 int		send_data			(int, char *);
+int		writeln				(const char *);
 
 char	*	readln			(int, char *);
 
