@@ -82,13 +82,13 @@ prepare_bot ()
 		{
 
 			case ERR_TIMED_OUT:
-				printf (".: Connection to %s:%ld timed out!\t\r", HOSTNAME, PORT);
+				printf (".: Connection to %s:%d timed out!\t\r", HOSTNAME, PORT);
 				fflush (stdout);
 				sleep (2);
 				break;
 
 			case ERR_CONN_REFUSED:
-				printf (".: Connection to %s:%ld was refused!\t\r", HOSTNAME, PORT);
+				printf (".: Connection to %s:%d was refused!\t\r", HOSTNAME, PORT);
 				fflush (stdout);
 				sleep (2);
 				break;
@@ -104,7 +104,7 @@ prepare_bot ()
 			default:
 				esc = 1;
 				printf
-					(".: Connected to %s:%ld! [%ld]\t\r", HOSTNAME, PORT, (long) getpid ());
+					(".: Connected to %s:%d! [%ld]\t\r", HOSTNAME, PORT, (long) getpid ());
 
 				fflush (stdout);
 				sleep (5);
@@ -163,9 +163,27 @@ S (const char *format, ...)
 	}
 }
 
+int
+Snow (const char *format, ...)
+{
+	va_list arglist;
+	char b[STRING_LONG] = { 0 };
+
+	va_start (arglist, format);
+	vsprintf (b, format, arglist);
+	va_end (arglist);
+#ifdef	DEBUG
+		printf ("OUT: %s\n", b);
+		return (writeln (b));
+#endif
+}
+
+
 int		register_bot		()
 {
-
+	get_sendq_count (1);
+	S ("NICK mybot\n");
+	S ("USER mybot %d %d :%s", time(NULL), time(NULL), PACKAGE_VERSION);
 }
 
 int

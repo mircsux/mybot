@@ -94,7 +94,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_mybot_OBJECTS = main.$(OBJEXT) sockets.$(OBJEXT) vars.$(OBJEXT) \
-	random.$(OBJEXT) signals.$(OBJEXT) server_cmds.$(OBJEXT)
+	random.$(OBJEXT) signals.$(OBJEXT) sendq.$(OBJEXT) \
+	server_cmds.$(OBJEXT)
 mybot_OBJECTS = $(am_mybot_OBJECTS)
 mybot_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -255,9 +256,9 @@ top_build_prefix =
 top_builddir = .
 top_srcdir = .
 ACLOCAL_AMFLAGS = 
-AM_CPP_FLAGS = -g -ansi -Wall -pedantic
+AM_CFLAGS = -g -Wall
 mybot_SOURCES = main.c sockets.c vars.c random.c signals.c \
-		server_cmds.c
+		sendq.c server_cmds.c
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am

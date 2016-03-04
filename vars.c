@@ -10,8 +10,7 @@ int		alarmed					= 0;
 int		sockfd					= 0;
 int		PORT					= 6667;
 int		send_tog				= 0;
-
-
+int		SEND_DELAY 				= 1;
 
 struct		sendq
 {
