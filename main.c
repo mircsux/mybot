@@ -49,6 +49,7 @@ int			main			(int argc, char **argv)
 	alarm (AIL);
 	prepare_bot ();
 	register_bot ();
+	S("JOIN #poop\n");
 	
 	while (1)
 	{

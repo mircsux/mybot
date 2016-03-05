@@ -54,8 +54,8 @@ void		parse		(char	*line)
 			return;
 		rest = strtok (NULL, "");
 		if (strstr (who, ".") == NULL)
-			from_server = 0;
-		else from_server = 1;
+			from_server = NO;
+		else from_server = YES;
 		
 		if (try_server_command(from_server, cmd, who, rest) == 1)
 		return;

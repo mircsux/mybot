@@ -8,6 +8,7 @@ struct {
 	void	(*func)(int, char *, char *, char *);
 }   server_command[] =
 {
+	{ "001", 			parse_001				},
 	{ "PING", 			parse_ping				},
 	{ "MODE", 			parse_mode				},
 	{ "PRIVMSG",		parse_privmsg			},
@@ -49,4 +50,17 @@ void		parse_ping			(int from_server, char *cmd, char *who, char *rest)
 			rest++;
 		S ("PONG :%s\n", rest);
 
+}
+
+void		parse_nick			(int fs, char *cmd, char *who, char *rest)
+{
+	printf ("hi(nick)\n");
+}
+
+void		parse_001			(int fs, char *cmd, char *who, char *rest)
+{
+	/* Use this to determine if we are successfully connected
+	   to a server.*/
+	   
+	   S ("JOIN #poop\n");
 }
