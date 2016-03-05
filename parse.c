@@ -7,9 +7,9 @@ parse_server_message (int sockfd, char *line, fd_set * read_fds)
 {
         if (FD_ISSET (sockfd, read_fds))
         {
-                if ((readln (sockfd, line)) != NULL)
+                if (readln (sockfd))
                 {
-                        parse (line);
+                        parse (myline);
                 }
                 else
 				{
@@ -20,6 +20,6 @@ parse_server_message (int sockfd, char *line, fd_set * read_fds)
 
 void		parse		(char	*line)
 {	
-	
+	stripline (line);
 	printf ("line = %s\n", line);
 }

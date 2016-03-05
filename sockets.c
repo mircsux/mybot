@@ -2,7 +2,7 @@
 
 #include "includes.h"
 
-char 	*readln 	(int sockfd, char *line)
+int 	readln 	(int sockfd)
 {
 	char ch = 0;
 	int	i = 0;
@@ -12,11 +12,11 @@ char 	*readln 	(int sockfd, char *line)
 		if (read (sockfd, &ch, 1) < 1)
 			return (0);
 		if (i < 524 - 1)
-			line[i++] = ch;
+			myline[i++] = ch;
 	}
 	while (ch != '\n');
-	line[i] = '\0';
-	return (line);
+	myline[i] = '\0';
+	return (1);
 }
 
 int

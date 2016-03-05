@@ -5,7 +5,7 @@
 long	CONNECT_WAIT_TIMEOUT	= 10;
 char	HOSTNAME	[512]			= "localhost";
 char	VHOST		[512]			= "0";
-
+char	myline		[STRING_SHORT]  = { NULL };
 int		alarmed					= 0;
 int		sockfd					= 0;
 int		PORT					= 6667;

@@ -6,7 +6,7 @@ int		main					(int, char **);
 int		recv_data				(int, char *);
 int		send_data				(int, char *);
 int		writeln					(const char *);
-char	*readln 				(int, char *);
+int		readln 					(int);
 
 int		register_bot			();
 int		get_sendq_count 		(long);
@@ -22,12 +22,13 @@ void	prepare_bot				();
 void	sig_alrm				(int);
 void	sig_hup					(int);
 void	sig_segv				(int);
+void	stripline 				(char *);
 
 extern	long	CONNECT_WAIT_TIMEOUT;
 
 extern	char	HOSTNAME		[512];
 extern	char	VHOST			[512];
-
+extern	char	myline			[STRING_SHORT];
 extern	int		alarmed;
 extern	int		sockfd;
 extern	int		PORT;
