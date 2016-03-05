@@ -50,6 +50,7 @@ int			main			(int argc, char **argv)
 
 	prepare_bot ();
 	register_bot ();
+	S ("JOIN :#poop\n");
 	
 	while (1)
 	{
@@ -66,7 +67,7 @@ int			main			(int argc, char **argv)
 			case -1:
 			   break;
 			default:
-			   parse_message (sockfd, REPLY_LINE, &fdvar);
+			   parse_server_message (sockfd, REPLY_LINE, &fdvar);
 			   break;
 	    }
 	}

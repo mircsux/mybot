@@ -2,22 +2,6 @@
 
 #include "includes.h"
 
-
-void	parse_message 	(int sockfd, char *line, fd_set *read_fds)
-{
-	if (FD_ISSET (sockfd, read_fds))
-    {
-		if (readln (sockfd, line) > 0)
-		{
-			printf ("%s\n", line);
-		}
-		else
-		{
-			close (sockfd);
-		}
-	}
-}
-
 char	*readln 	(int sockfd, char *line)
 {
 	char ch = 0;

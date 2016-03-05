@@ -1,9 +1,9 @@
 /* Vars */
-#include "defines.h"
-#include <stdio.h>
+#include "includes.h"
+
 
 long	CONNECT_WAIT_TIMEOUT	= 10;
-char	HOSTNAME	[512]			= "punch.wa.us.dal.net";
+char	HOSTNAME	[512]			= "localhost";
 char	VHOST		[512]			= "0";
 
 int		alarmed					= 0;
@@ -12,8 +12,15 @@ int		PORT					= 6667;
 int		send_tog				= 0;
 int		SEND_DELAY 				= 1;
 
-struct		sendq
-{
-		char	data	[STRING_SHORT];
-		struct	sendq 	*next;
-}		*sendqhead = NULL, *sendqtail = NULL;
+struct sendq *sendqhead = NULL, *sendqtail = NULL;
+
+
+struct	{
+		char 	*cmd;
+		void	(*function)(char *, char *);
+}		parse_server_cmd[] = {
+
+	{	"PING",					parse_ping				},
+	{	NULL,					NULL					}
+
+};
