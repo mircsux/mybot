@@ -7,8 +7,6 @@ int			main			(int argc, char **argv)
 {
 	FILE	*fp = NULL;
 
-	char	REPLY_LINE	[STRING_LONG] = { "0" };
-	
 	fd_set	fdvar;
 	struct	timeval		timeout;
 	
@@ -48,9 +46,9 @@ int			main			(int argc, char **argv)
 		exit	(EXIT_FAILURE);
 	}
 
+	alarm (AIL);
 	prepare_bot ();
 	register_bot ();
-	S ("JOIN :#poop\n");
 	
 	while (1)
 	{
@@ -67,7 +65,7 @@ int			main			(int argc, char **argv)
 			case -1:
 			   break;
 			default:
-			   parse_server_message (sockfd, REPLY_LINE, &fdvar);
+			   parse_server_message (&fdvar);
 			   break;
 	    }
 	}

@@ -7,6 +7,20 @@ void		sig_alrm (int unused)
 {
 	alarmed = 1;
 	alarm (AIL);
+	AIL8 += AIL;
+
+	if (AIL8 >= SEND_DELAY)
+	{
+		AIL8 = 0;
+		Send ();
+	}
+	AIL666 += AIL;
+	if (AIL666 >= 60)
+	{
+		AIL666 = 0;
+		S ("PING :%s\n", HOSTNAME);
+	}
+	
 }
 
 void		sig_segv (int unused)

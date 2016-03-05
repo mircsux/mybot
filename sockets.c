@@ -2,7 +2,7 @@
 
 #include "includes.h"
 
-int 	readln 	(int sockfd)
+int 	readln 	(void)
 {
 	char ch = 0;
 	int	i = 0;
@@ -135,17 +135,35 @@ Snow (const char *format, ...)
 	va_end (arglist);
 #ifdef	DEBUG
 		printf ("OUT: %s\n", b);
-		return (writeln (b));
 #endif
+		return (writeln (b));
 }
 
+int
+Send (void)
+{
+	struct sendq *c;
+	char output[STRING_LONG];
+	c = sendqhead;
+	get_sendq_count (0);
+	if (c == NULL)
+	{
+		send_tog = 0;
+		return -1;
+	}
+#ifdef	DEBUG
+		printf ("OUT: %s\n", c->data);
+#endif
+	strncpy (output, c->data, sizeof (output));
+	del_sendq (0);
+	return (writeln (output));
+}
 
 int		register_bot		()
 {
 	get_sendq_count (1);
 	Snow ("NICK mybot\n");
 	Snow ("USER mybot %d %d :%s\n", time(NULL), time(NULL), PACKAGE_VERSION);
-
 	return (1);
 }
 

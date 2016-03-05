@@ -16,6 +16,7 @@
 #include	<netdb.h>
 #include	<fcntl.h>
 #include 	<unistd.h>
+#include 	<ctype.h>
 
 #include	"defines.h"
 #include	"vars.h"
