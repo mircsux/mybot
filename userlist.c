@@ -64,3 +64,32 @@ void	add_user		(char *chan, char *nick, char *uh, long tog)
         iulhead = n;
         }
 }
+
+void		delete_user (const char *nick, char *chan)
+{
+	struct IUL *pNode, *pPrev;
+
+	pNode = iulhead;
+	pPrev = NULL;
+
+	while (pNode)
+	{
+		if (stricmp (pNode->nick, nick) == 0 && stricmp (pNode->chan, chan) == 0)
+		{
+/*			save_seen (pNode->nick, pNode->uh, pNode->chan); */
+			if (pPrev != NULL)
+			{
+				pPrev->next = pNode->next;
+			}
+			else
+			{
+				iulhead = pNode->next;
+			}
+			free (pNode);
+			pNode = NULL;
+			break;
+		}
+		pPrev = pNode;
+		pNode = pNode->next;
+	}
+}

@@ -10,13 +10,14 @@ int		writeln					(const char *);
 int		readln 					(void);
 int		try_server_command		(int, char *, char *, char *);
 
-int		register_bot			();
+int		register_bot			(void);
 int		get_sendq_count 		(long);
-int		Snow 					(const char *format, ...);
+int		Snow 					(const char *, ...);
 int		stricmp 				(const char *, const char *);
 
 void    clear_sendq 			(long, long);
-void	S 						(const char *format, ...);
+void	S 						(const char *, ...);
+void	delete_user 			(const char *, char *);
 void	del_sendq 				(long);
 void	parse					(char *);
 void	parse_001				(int, char *, char *, char *);

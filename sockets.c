@@ -159,7 +159,7 @@ Send (void)
 	return (writeln (output));
 }
 
-int		register_bot		()
+int		register_bot		(void)
 {
 	get_sendq_count (1);
 	Snow ("NICK mybot\n");
