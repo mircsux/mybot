@@ -2,7 +2,7 @@
 
 #include "includes.h"
 
-char	*readln 	(int sockfd, char *line)
+char 	*readln 	(int sockfd, char *line)
 {
 	char ch = 0;
 	int	i = 0;

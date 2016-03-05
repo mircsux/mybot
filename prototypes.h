@@ -6,17 +6,17 @@ int		main					(int, char **);
 int		recv_data				(int, char *);
 int		send_data				(int, char *);
 int		writeln					(const char *);
+char	*readln 				(int, char *);
+
 int		register_bot			();
 int		get_sendq_count 		(long);
 int		Snow 					(const char *, ...);
-
-char	*	readln				(int, char *);
 
 void    clear_sendq 			(long, long);
 void	S 						(const char *, ...);
 void	del_sendq 				(long);
 void	parse					(char *);
-void	parse_ping				(char *, char *);
+void	parse_ping				(char *);
 void	parse_server_message	(int, char *, fd_set *);
 void	prepare_bot				();
 void	sig_alrm				(int);
