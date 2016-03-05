@@ -4,6 +4,8 @@
 #define	PAST_RESULT_FILE		"past.txt"
 
 
+#define	YES						1
+#define	NO						0
 #define	AIL						1
 #define	USEC					0
 #define	WSEC					10

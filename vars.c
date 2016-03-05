@@ -16,14 +16,3 @@ int		send_tog				= 0;
 int		SEND_DELAY 				= 1;
 
 struct sendq *sendqhead = NULL, *sendqtail = NULL;
-
-
-struct	{
-		char 	*cmd;
-		void	(*function)(char *, char *);
-}		parse_server_cmd[] = {
-
-	{	"PING",					parse_ping				},
-	{	NULL,					NULL					}
-
-};

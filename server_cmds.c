@@ -5,7 +5,7 @@
 
 struct {
 	char	*cmd;
-	void	(*func)(char *, char *);
+	void	(*func)(int, char *, char *, char *);
 }   server_command[] =
 {
 	{ "PING", 			parse_ping				},
@@ -14,15 +14,15 @@ struct {
 	{  NULL	,			NULL					}
 };
 
-int		try_server_command		(char *who, char *rest)
+int		try_server_command		(int from_server, char *cmd, char *who, char *rest)
 {
 	int		i = 0;
 
 	for (i = 0; server_command[i].cmd; i++)
 	 {
-		if (stricmp (who, server_command[i].cmd) == 0)
+		if (stricmp (cmd, server_command[i].cmd) == 0)
 		{
-				server_command[i].func (who, rest);
+				server_command[i].func (from_server, cmd, who, rest);
 				/* Success */
 				return (1);
 		}
@@ -31,17 +31,17 @@ int		try_server_command		(char *who, char *rest)
 	 return (0);
 }
 
-void		parse_mode			(char *who, char *rest)
+void		parse_mode			(int from_server, char *cmd, char *who, char *rest)
 {
 	
 } 
 
-void		parse_privmsg		(char *who, char *rest)
+void		parse_privmsg		(int from_server, char *cmd, char *who, char *rest)
 {
-	
-	
+	printf ("hi\n");
 }
-void		parse_ping			(char *who, char *rest)
+
+void		parse_ping			(int from_server, char *cmd, char *who, char *rest)
 {
 		/* Return fire with a pong. */
 
