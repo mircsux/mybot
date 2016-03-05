@@ -20,7 +20,7 @@ void	S 						(const char *format, ...);
 void	del_sendq 				(long);
 void	parse					(char *);
 void	parse_001				(int, char *, char *, char *);
-void	parse_join				(int, char *, char *, char *)
+void	parse_join				(int, char *, char *, char *);
 void	parse_mode				(int, char *, char *, char *);
 void	parse_nick				(int, char *, char *, char *);
 void	parse_ping				(int, char *, char *, char *);
