@@ -9,6 +9,8 @@ struct {
 }   server_command[] =
 {
 	{ "PING", 			parse_ping				},
+	{ "MODE", 			parse_mode				},
+	{ "PRIVMSG",		parse_privmsg			},
 	{  NULL	,			NULL					}
 };
 
@@ -27,7 +29,18 @@ int		try_server_command		(char *who, char *rest)
 	 }
 	 /* No match */
 	 return (0);
- }
+}
+
+void		parse_mode			(char *who, char *rest)
+{
+	
+} 
+
+void		parse_privmsg		(char *who, char *rest)
+{
+	
+	
+}
 void		parse_ping			(char *who, char *rest)
 {
 		/* Return fire with a pong. */

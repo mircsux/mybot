@@ -44,13 +44,18 @@ void		parse		(char	*line)
 	 if (try_server_command(who, rest) == 1)
 		return;
 	
+	/* Check if originating from a another client, this will
+	   will be a ron!ron@ron.com type userhost if so and 
+	   contain the ! character, otherwise, pass through to 
+	   next check. 
+	 */
+	 
 	if (strstr (who, "!") == NULL)
 	{
 		cmd = strtok (rest, " ");
 		if (cmd == NULL)
 			return;
 		rest = strtok (NULL, "");
-		printf ("parse(cmd = %s, rest = %s\n", cmd, rest);
 	}
 	/* Try again. We get this sometimes, certain messages from
 	 * server do not include a trailing sender token. We parse
