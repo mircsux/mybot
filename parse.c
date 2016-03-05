@@ -31,6 +31,10 @@ void		parse		(char	*line)
 	if ((who = strtok (line, " ")) == NULL)
 		return;
 	
+	/* Strip the leading ':' off the sender. */
+	if (*who == ':')
+		who++;
+	
 	rest = strtok (NULL, "");
 	if (rest == NULL)	return;
 	
@@ -40,9 +44,6 @@ void		parse		(char	*line)
 	 if (try_server_command(who, rest) == 1)
 		return;
 	
-	if (*who == ':')
-		*who++;
-	
 	if (strstr (who, "!") == NULL)
 	{
 		cmd = strtok (rest, " ");
@@ -51,7 +52,11 @@ void		parse		(char	*line)
 		rest = strtok (NULL, "");
 		printf ("parse(cmd = %s, rest = %s\n", cmd, rest);
 	}
-	/* Try again */
+	/* Try again. We get this sometimes, certain messages from
+	 * server do not include a trailing sender token. We parse
+	 * through and find these messages first, after they are taken
+	 * care of, we check for other commands that originate from	
+	 * a specific sender. */
 	if (try_server_command(who, rest) == 1)
 		return;
 
