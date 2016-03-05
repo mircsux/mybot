@@ -69,6 +69,7 @@ void		parse		(char	*line)
 		if (try_server_command(NO, cmd, who, rest) == 1)
 			return;
 	}
-	
+#ifdef		DEBUG
 	printf ("cmd = %s, who = %s, rest = %s\n", cmd, who, rest);
+#endif	
 }

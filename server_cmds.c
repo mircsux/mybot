@@ -9,8 +9,9 @@ struct {
 }   server_command[] =
 {
 	{ "001", 			parse_001				},
-	{ "PING", 			parse_ping				},
+	{ "JOIN", 			parse_join				},
 	{ "MODE", 			parse_mode				},
+	{ "PING", 			parse_ping				},
 	{ "PRIVMSG",		parse_privmsg			},
 	{  NULL	,			NULL					}
 };
@@ -63,4 +64,16 @@ void		parse_001			(int fs, char *cmd, char *who, char *rest)
 	   to a server.*/
 	   
 	   S ("JOIN #poop\n");
+}
+
+void		parse_join			(int fs, char *cmd, char *who, char *rest)
+{
+	/* Do the add_user in here somewhere */
+	
+
+}
+
+void		parse_who			(int fs, char *cmd, char *who, char *rest)
+{
+	/* Do the add_user in here somewhere too. */
 }

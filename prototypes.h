@@ -20,10 +20,12 @@ void	S 						(const char *format, ...);
 void	del_sendq 				(long);
 void	parse					(char *);
 void	parse_001				(int, char *, char *, char *);
+void	parse_join				(int, char *, char *, char *)
 void	parse_mode				(int, char *, char *, char *);
 void	parse_nick				(int, char *, char *, char *);
 void	parse_ping				(int, char *, char *, char *);
 void	parse_privmsg			(int, char *, char *, char *);
+void	parse_who				(int, char *, char *, char *);
 void	parse_server_message	(fd_set *);
 void	prepare_bot				();
 void	sig_alrm				(int);
@@ -50,3 +52,12 @@ extern	struct sendq
         struct sendq *next;
 }		*sendqhead, *sendqtail;
 
+struct		IUL
+{
+	char	chan		[STRING_SHORT]; /* User's channel */
+	char	nick		[STRING_SHORT]; /* User's nickname */
+	char	uh			[STRING_SHORT]; /* User's hostmask */
+	int		level;						/* Level user authed, if authed */
+	long	idle;
+	struct	IUL *next;
+}   *iulhead;
