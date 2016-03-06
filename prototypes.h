@@ -17,6 +17,7 @@ int		stricmp 				(const char *, const char *);
 
 void    clear_sendq 			(long, long);
 void	S 						(const char *, ...);
+void	add_user				(char *, char *, char *, long);
 void	delete_user 			(const char *, char *);
 void	del_sendq 				(long);
 void	parse					(char *);
@@ -39,8 +40,9 @@ extern	long	CONNECT_WAIT_TIMEOUT;
 extern	long	AIL666;
 extern	long	AIL8;
 
-extern	char	HOSTNAME		[512];
-extern	char	VHOST			[512];
+extern	char	HOSTNAME		[STRING_SHORT];
+extern	char	VHOST			[STRING_SHORT];
+extern	char	MYNICK			[STRING_SHORT];
 extern	char	myline			[STRING_SHORT];
 extern	int		alarmed;
 extern	int		sockfd;

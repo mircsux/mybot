@@ -6,8 +6,10 @@ long	CONNECT_WAIT_TIMEOUT	= 10;
 long	AIL666 					= 0;
 long	AIL8					= 0;
 
-char	HOSTNAME	[512]			= "localhost";
-char	VHOST		[512]			= "0";
+char	HOSTNAME[STRING_SHORT]	= "localhost";
+char	VHOST	[STRING_SHORT]	= "0";
+char	MYNICK	[STRING_SHORT] 	= "mybot";
+
 char	myline		[STRING_SHORT]  = { "\0" };
 int		alarmed					= 0;
 int		sockfd					= 0;

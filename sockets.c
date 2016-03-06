@@ -159,14 +159,6 @@ Send (void)
 	return (writeln (output));
 }
 
-int		register_bot		(void)
-{
-	get_sendq_count (1);
-	Snow ("NICK mybot\n");
-	Snow ("USER mybot %d %d :%s\n", time(NULL), time(NULL), PACKAGE_VERSION);
-	return (1);
-}
-
 int
 create_connection (char *server, char *virtualhost, long port)
 {

@@ -16,6 +16,14 @@ struct {
 	{  NULL	,			NULL					}
 };
 
+int		register_bot		(void)
+{
+	get_sendq_count (1);
+	Snow ("NICK %s\n", MYNICK);
+	Snow ("USER mybot %d %d :%s\n", time(NULL), time(NULL), PACKAGE_VERSION);
+	return (1);
+}
+
 int		try_server_command		(int from_server, char *cmd, char *who, char *rest)
 {
 	int		i = 0;
@@ -73,9 +81,44 @@ void		parse_error			(int fs, char *cmd, char *who, char *rest)
 
 void		parse_join			(int fs, char *cmd, char *who, char *rest)
 {
-	/* Do the add_user in here somewhere */
+	char	*chan = NULL;
+	char	*nick = NULL;
+	char	*uh = NULL;
 	
-
+	
+	if (fs == NO)
+	{
+		if ((nick = strchr (who, '!')) != NULL)
+			*nick++ = '\0';
+		
+		strlwr (nick);
+		
+		if ((uh = strtok (NULL, " ")) == NULL)
+			return;
+		
+		if ((chan = strtok (rest, " ")) == NULL)
+			return;
+		/* This should be NULL, and is probably unnecessary. */
+		rest = strtok (NULL, "");
+		
+		/* Check to see if this is ME joining, if it is not, 
+		   update the internal user list with this user's
+		   information. If this is me joining, retrieve a list
+		   of channel users and update the internet user list
+		   through parse_who. */
+		   
+		if (stricmp (nick, MYNICK) != 0)
+		{	
+			add_user (chan, nick, uh, 1);
+		}
+		else
+		{
+				S ("WHO %s\n", chan);
+		}
+		printf ("nick = %s, uh = %s, chan = %s, rest = %s\n",
+					nick, uh, chan, rest);
+					
+	}
 }
 
 void		parse_who			(int fs, char *cmd, char *who, char *rest)
