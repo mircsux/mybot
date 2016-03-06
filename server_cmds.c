@@ -66,6 +66,11 @@ void		parse_001			(int fs, char *cmd, char *who, char *rest)
 	   S ("JOIN #poop\n");
 }
 
+void		parse_error			(int fs, char *cmd, char *who, char *rest)
+{
+	printf ("error\n");
+}
+
 void		parse_join			(int fs, char *cmd, char *who, char *rest)
 {
 	/* Do the add_user in here somewhere */
