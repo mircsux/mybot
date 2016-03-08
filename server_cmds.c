@@ -9,6 +9,7 @@ struct {
 }   server_command[] =
 {
 	{ "001", 			parse_001				},
+	{ "315", 			parse_end_of_who		},
 	{ "352",			parse_who				},
 	{ "JOIN", 			parse_join				},
 	{ "MODE", 			parse_mode				},
@@ -21,7 +22,7 @@ int		register_bot		(void)
 {
 	get_sendq_count (1);
 	Snow ("NICK %s\n", MYNICK);
-	Snow ("USER mybot %d %d :%s\n", time(NULL), time(NULL), PACKAGE_VERSION);
+	Snow ("USER mybot %d %d :test bot %s\n", time(NULL), time(NULL), PACKAGE_VERSION);
 	return (1);
 }
 
@@ -49,7 +50,8 @@ void		parse_mode			(int from_server, char *cmd, char *who, char *rest)
 
 void		parse_privmsg		(int from_server, char *cmd, char *who, char *rest)
 {
-	S ("WHO :nor\n");
+		/* This will mostly initiate the chanserv() function */
+		
 }
 
 void		parse_ping			(int from_server, char *cmd, char *who, char *rest)
@@ -80,18 +82,22 @@ void		parse_error			(int fs, char *cmd, char *who, char *rest)
 	printf ("error\n");
 }
 
+void		parse_end_of_who	(int fs, char *cmd, char *who, char *rest)
+{
+	BurstingWho = NO;
+}
+
 void		parse_join			(int fs, char *cmd, char *who, char *rest)
 {
 	char *uh = NULL, *nick = NULL;
 	
-	printf ("hi\n");
 	if (fs == NO)
 	{
-		printf ("who=%s, rest=%s\n", who, rest);
 		if ((nick = strtok (who, "!")) == NULL)
 			return;
 		if ((uh = strtok (NULL, " ")) == NULL)
 			return;
+		printf ("uh = %s\n", uh);
 		printf ("nick = %s\n", nick);
 		/* Check to see if this is ME joining, if it is not, 
 		   update the internal user list with this user's
@@ -106,15 +112,14 @@ void		parse_join			(int fs, char *cmd, char *who, char *rest)
 			   /who the whole room, which may be unnecessary,
 			   we shall see. */
         
-			printf ("add_user\n");
 			add_user (rest, nick, uh, 1);
 			return;
 		}
-		else
-		{
-			printf ("who the room\n");
-			S ("WHO %s\n", rest);
-		}
+
+		printf ("who the room\n");
+		
+		BurstingWho = YES;
+		S ("WHO %s\n", rest);
 	}
 }
 
@@ -123,6 +128,7 @@ void		parse_who			(int fs, char *cmd, char *who, char *rest)
 	char	*chan = NULL, *nick = NULL, *host = NULL, *ptr = NULL;
 	char	str[STRING_SHORT] = {0};
 
+	/* Sanity check for this var, probably not necessary */
 	if (BurstingWho != YES)
 		BurstingWho = YES;
 	

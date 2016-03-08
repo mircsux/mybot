@@ -23,6 +23,7 @@ void	del_sendq 				(long);
 void	parse					(char *);
 void	parse_001				(int, char *, char *, char *);
 void	parse_error				(int, char *, char *, char *);
+void	parse_end_of_who		(int, char *, char *, char *);
 void	parse_join				(int, char *, char *, char *);
 void	parse_mode				(int, char *, char *, char *);
 void	parse_nick				(int, char *, char *, char *);
