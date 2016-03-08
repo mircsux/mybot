@@ -17,8 +17,8 @@ int		stricmp 				(const char *, const char *);
 
 void    clear_sendq 			(long, long);
 void	S 						(const char *, ...);
-void	add_user				(char *, char *, char *, long);
-void	delete_user 			(const char *, char *);
+void	add_iul_user			(char *, char *, char *, long);
+void	del_iul_user 			(const char *, char *);
 void	del_sendq 				(long);
 void	parse					(char *);
 void	parse_001				(int, char *, char *, char *);

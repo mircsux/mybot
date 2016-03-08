@@ -1,8 +1,7 @@
 /* Defines */
 
-/* File that contains past lottery results */
-#define	PAST_RESULT_FILE		"past.txt"
-
+#define	CONFIG_DIR				"dat"
+#define	CONFIG_FILE				"config.ini"
 
 #define	YES						1
 #define	NO						0

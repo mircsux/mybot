@@ -3,7 +3,7 @@
 #include "includes.h"
 
 
-void	add_user		(char *chan, char *nick, char *uh, long tog)
+void	add_iul_user		(char *chan, char *nick, char *uh, long tog)
 {
 	/* If 0 tog, just unidle the client */
 	struct	IUL 	*n, *c;
@@ -65,7 +65,7 @@ void	add_user		(char *chan, char *nick, char *uh, long tog)
         }
 }
 
-void		delete_user (const char *nick, char *chan)
+void		del_iul_user (const char *nick, char *chan)
 {
 	struct IUL *pNode, *pPrev;
 

@@ -39,18 +39,10 @@ int			main			(int argc, char **argv)
 
 	printf ("[*** Ron's IRC Bot %s ***]\r\n", PACKAGE_VERSION);
 
-	/* Open the past results file. */
-	if	((fp = fopen (PAST_RESULT_FILE, "r")) == NULL)
-	{
-		printf	(":. Failed to open past results file (%s)\t\r", PAST_RESULT_FILE);
-		exit	(EXIT_FAILURE);
-	}
-
 	alarm (AIL);
 	prepare_bot ();
 	register_bot ();
-	S("JOIN #poop\n");
-	
+
 	while (1)
 	{
 		timeout.tv_sec = WSEC;

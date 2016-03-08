@@ -112,7 +112,7 @@ void		parse_join			(int fs, char *cmd, char *who, char *rest)
 			   /who the whole room, which may be unnecessary,
 			   we shall see. */
         
-			add_user (rest, nick, uh, 1);
+			add_iul_user (rest, nick, uh, 1);
 			return;
 		}
 
@@ -148,6 +148,6 @@ void		parse_who			(int fs, char *cmd, char *who, char *rest)
 	nick = strtok (NULL, " "); /*server */
 	nick = strtok (NULL, " ");
 	/* Add user information to the internal user list, */
-	add_user (chan, nick, str, 1);
+	add_iul_user (chan, nick, str, 1);
 	
 }
