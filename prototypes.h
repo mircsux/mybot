@@ -49,6 +49,7 @@ extern	int		sockfd;
 extern	int		PORT;
 extern  int		send_tog;
 extern	int		SEND_DELAY;
+extern 	int		BurstingWho;
 
 extern	struct sendq
 {

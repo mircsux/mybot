@@ -9,6 +9,7 @@ struct {
 }   server_command[] =
 {
 	{ "001", 			parse_001				},
+	{ "352",			parse_who				},
 	{ "JOIN", 			parse_join				},
 	{ "MODE", 			parse_mode				},
 	{ "PING", 			parse_ping				},
@@ -48,7 +49,7 @@ void		parse_mode			(int from_server, char *cmd, char *who, char *rest)
 
 void		parse_privmsg		(int from_server, char *cmd, char *who, char *rest)
 {
-	printf ("hi\n");
+	S ("WHO :nor\n");
 }
 
 void		parse_ping			(int from_server, char *cmd, char *who, char *rest)
@@ -81,26 +82,17 @@ void		parse_error			(int fs, char *cmd, char *who, char *rest)
 
 void		parse_join			(int fs, char *cmd, char *who, char *rest)
 {
-	char	*chan = NULL;
-	char	*nick = NULL;
-	char	*uh = NULL;
+	char *uh = NULL, *nick = NULL;
 	
-	
+	printf ("hi\n");
 	if (fs == NO)
 	{
-		if ((nick = strchr (who, '!')) != NULL)
-			*nick++ = '\0';
-		
-		strlwr (nick);
-		
+		printf ("who=%s, rest=%s\n", who, rest);
+		if ((nick = strtok (who, "!")) == NULL)
+			return;
 		if ((uh = strtok (NULL, " ")) == NULL)
 			return;
-		
-		if ((chan = strtok (rest, " ")) == NULL)
-			return;
-		/* This should be NULL, and is probably unnecessary. */
-		rest = strtok (NULL, "");
-		
+		printf ("nick = %s\n", nick);
 		/* Check to see if this is ME joining, if it is not, 
 		   update the internal user list with this user's
 		   information. If this is me joining, retrieve a list
@@ -109,19 +101,47 @@ void		parse_join			(int fs, char *cmd, char *who, char *rest)
 		   
 		if (stricmp (nick, MYNICK) != 0)
 		{	
-			add_user (chan, nick, uh, 1);
+			/* Add this user to the internal user list if 
+			   it's not me. And then return so we don't
+			   /who the whole room, which may be unnecessary,
+			   we shall see. */
+        
+			printf ("add_user\n");
+			add_user (rest, nick, uh, 1);
+			return;
 		}
 		else
 		{
-				S ("WHO %s\n", chan);
+			printf ("who the room\n");
+			S ("WHO %s\n", rest);
 		}
-		printf ("nick = %s, uh = %s, chan = %s, rest = %s\n",
-					nick, uh, chan, rest);
-					
 	}
 }
 
 void		parse_who			(int fs, char *cmd, char *who, char *rest)
 {
-	/* Do the add_user in here somewhere too. */
+	char	*chan = NULL, *nick = NULL, *host = NULL, *ptr = NULL;
+	char	str[STRING_SHORT] = {0};
+
+	if (BurstingWho != YES)
+		BurstingWho = YES;
+	
+	printf ("who: rest = %s\n", rest);
+	/* Trap my nickname, we will update our nickname variable
+	   incase our default name was rejected on connect, or 
+	   another nickname was set. Maybe some other scenarios?
+	   Check for NULL is probably unecessary. */
+	nick = strtok (rest, " "); 
+	if (nick == NULL) return;
+	strncpy (MYNICK, nick, sizeof (MYNICK));
+	chan = strtok (NULL, " ");
+	if (chan == NULL) return;
+	if ((ptr = strtok (NULL, " ")) == NULL) return;
+	if ((host = strtok (NULL, " ")) == NULL) return;
+	snprintf (str, sizeof (str), "%s@%s", ptr, host);
+	nick = strtok (NULL, " "); /*server */
+	nick = strtok (NULL, " ");
+	/* Add user information to the internal user list, */
+	add_user (chan, nick, str, 1);
+	
 }

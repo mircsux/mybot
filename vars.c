@@ -16,5 +16,5 @@ int		sockfd					= 0;
 int		PORT					= 6667;
 int		send_tog				= 0;
 int		SEND_DELAY 				= 1;
-
+int		BurstingWho				= 0;  /* Are we receiving a /who burst? */
 struct sendq *sendqhead = NULL, *sendqtail = NULL;
