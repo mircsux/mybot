@@ -11,8 +11,11 @@ struct {
 	{ "001", 			parse_001				},
 	{ "315", 			parse_end_of_who		},
 	{ "352",			parse_who				},
+	{ "ERROR", 			parse_error				},
 	{ "JOIN", 			parse_join				},
+	{ "KICK",			parse_kick				},
 	{ "MODE", 			parse_mode				},
+	{ "PART", 			parse_part				},
 	{ "PING", 			parse_ping				},
 	{ "PRIVMSG",		parse_privmsg			},
 	{  NULL	,			NULL					}
@@ -64,6 +67,16 @@ void		parse_ping			(int from_server, char *cmd, char *who, char *rest)
 
 }
 
+void		parse_error			(int fs, char *cmd, char *who, char *rest)
+{
+	/* Error from server! */
+	if (strstr (rest, "Excess Flood") != NULL)
+	{
+		prepare_bot();
+		register_bot();
+	}
+
+}
 void		parse_nick			(int fs, char *cmd, char *who, char *rest)
 {
 	printf ("hi(nick)\n");
@@ -75,11 +88,6 @@ void		parse_001			(int fs, char *cmd, char *who, char *rest)
 	   to a server.*/
 	   
 	   S ("JOIN #poop\n");
-}
-
-void		parse_error			(int fs, char *cmd, char *who, char *rest)
-{
-	printf ("error\n");
 }
 
 void		parse_end_of_who	(int fs, char *cmd, char *who, char *rest)
@@ -150,4 +158,34 @@ void		parse_who			(int fs, char *cmd, char *who, char *rest)
 	/* Add user information to the internal user list, */
 	add_iul_user (chan, nick, str, 1);
 	
+}
+
+void		parse_kick	(int fs, char *cmd, char *who, char *rest)
+{
+	/* Remember to del_iul_user() in this */
+}
+
+void	    parse_part (int fs, char *cmd, char *who, char *rest)
+{
+	char  *nick = NULL, *chan = NULL;
+	
+	/* nick -> chan */
+	printf ("who = %s, rest = %s\n", who, rest);
+	/* Remember to del_iul_user() in this */
+	 
+	if ((nick = strtok (who, "!")) == NULL)
+		return;
+	
+	if ((chan = strtok (rest, " ")) == NULL)
+		return;
+	
+	if (*chan == ':')
+		chan++;
+	/* Maybe at some point add responses to funny 
+	   part messages? */
+	
+	/* If I leave the room, delete all users from memory, 
+	   otherwise just delete the one leaving. */
+	if ((stricmp (nick, MYNICK)) != 0)
+		del_iul_user (nick, chan);
 }

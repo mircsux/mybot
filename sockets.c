@@ -26,7 +26,7 @@ writeln (const char *b)
 }
 
 void
-prepare_bot ()
+prepare_bot (void)
 {
 	int esc = 0;
 
