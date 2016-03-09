@@ -105,8 +105,6 @@ void		parse_join			(int fs, char *cmd, char *who, char *rest)
 			return;
 		if ((uh = strtok (NULL, " ")) == NULL)
 			return;
-		printf ("uh = %s\n", uh);
-		printf ("nick = %s\n", nick);
 		/* Check to see if this is ME joining, if it is not, 
 		   update the internal user list with this user's
 		   information. If this is me joining, retrieve a list
@@ -140,7 +138,6 @@ void		parse_who			(int fs, char *cmd, char *who, char *rest)
 	if (BurstingWho != YES)
 		BurstingWho = YES;
 	
-	printf ("who: rest = %s\n", rest);
 	/* Trap my nickname, we will update our nickname variable
 	   incase our default name was rejected on connect, or 
 	   another nickname was set. Maybe some other scenarios?
@@ -162,7 +159,25 @@ void		parse_who			(int fs, char *cmd, char *who, char *rest)
 
 void		parse_kick	(int fs, char *cmd, char *who, char *rest)
 {
-	/* Remember to del_iul_user() in this */
+	char	*chan = NULL, *kicked = NULL;
+
+	/* The kicker shows up in who, first token of rest is channel,
+	   then kicked person and finally reason. */
+	
+	if ((chan = strtok (rest, " ")) == NULL)
+		return;
+	
+	if ((kicked = strtok (NULL, " ")) == NULL)
+		return;
+	
+	 if (stricmp (kicked, MYNICK) == 0)
+	 {
+		 /* If I was kicked. */
+	 }
+	 else
+	 {
+		del_iul_user (kicked, chan);
+	 }
 }
 
 void	    parse_part (int fs, char *cmd, char *who, char *rest)
@@ -171,8 +186,7 @@ void	    parse_part (int fs, char *cmd, char *who, char *rest)
 	
 	/* nick -> chan */
 	printf ("who = %s, rest = %s\n", who, rest);
-	/* Remember to del_iul_user() in this */
-	 
+
 	if ((nick = strtok (who, "!")) == NULL)
 		return;
 	
