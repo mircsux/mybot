@@ -60,6 +60,18 @@ extern	struct sendq
         struct sendq *next;
 }		*sendqhead, *sendqtail;
 
+/* Internal Server List */
+struct 		ISL	
+{
+		char		server 	[STRING_SHORT];
+		long		port;
+		char		pass	[STRING_SHORT];
+		int			sockfd;
+		struct		ISL		*next;
+		
+}  *islhead;
+
+/* Internal User List */
 struct		IUL
 {
 	char	chan		[STRING_SHORT]; /* User's channel */
