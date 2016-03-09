@@ -93,10 +93,10 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_mybot_OBJECTS = main.$(OBJEXT) parse.$(OBJEXT) sockets.$(OBJEXT) \
-	vars.$(OBJEXT) random.$(OBJEXT) signals.$(OBJEXT) \
+am_mybot_OBJECTS = config.$(OBJEXT) main.$(OBJEXT) parse.$(OBJEXT) \
+	sockets.$(OBJEXT) vars.$(OBJEXT) random.$(OBJEXT) \
 	sendq.$(OBJEXT) server_cmds.$(OBJEXT) functions.$(OBJEXT) \
-	usrcmds.$(OBJEXT) userlist.$(OBJEXT)
+	usrcmds.$(OBJEXT) signals.$(OBJEXT) userlist.$(OBJEXT)
 mybot_OBJECTS = $(am_mybot_OBJECTS)
 mybot_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -258,8 +258,9 @@ top_builddir = .
 top_srcdir = .
 ACLOCAL_AMFLAGS = 
 AM_CFLAGS = -g -Wall -DDEBUG
-mybot_SOURCES = main.c parse.c sockets.c vars.c random.c signals.c \
-		sendq.c server_cmds.c functions.c usrcmds.c userlist.c
+mybot_SOURCES = config.c main.c parse.c sockets.c vars.c random.c \
+		sendq.c server_cmds.c functions.c usrcmds.c signals.c\
+ 		userlist.c
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
