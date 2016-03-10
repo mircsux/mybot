@@ -1,4 +1,6 @@
-/* Anything pertaining to the Internet User List (IUL) */
+/* Anything pertaining to the Internet User List (IUL) 
+ * or the Internal Server List (ISL) or any other 
+   list that is kept in memory for further use. */
 
 #include "includes.h"
 
@@ -91,5 +93,27 @@ void		del_iul_user (const char *nick, char *chan)
 		}
 		pPrev = pNode;
 		pNode = pNode->next;
+	}
+}
+
+void	add_isl_server 		(char *adds, long addp, char *addpass, char *chans)
+{
+	struct	ISL  *isl;
+	
+	if ((isl = malloc (sizeof (struct ISL))) == NULL)
+	{
+		printf ("Out of memory in add_isl_server().\n");
+		return;
+	}
+	
+	memset (isl, 0, sizeof (struct ISL));
+	
+	if (isl != NULL)
+	{
+		strncpy (isl->server, adds, sizeof (isl->server));
+		isl->port = addp;
+		if (addpass != NULL)
+			strncpy (isl->pass, addpass, sizeof (isl->pass));
+		isl->next = isl;
 	}
 }

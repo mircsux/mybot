@@ -18,8 +18,10 @@ int		stricmp 				(const char *, const char *);
 void    clear_sendq 			(long, long);
 void	S 						(const char *, ...);
 void	add_iul_user			(char *, char *, char *, long);
+void	add_isl_server 			(char *, long, char *, char *);
 void	del_iul_user 			(const char *, char *);
 void	del_sendq 				(long);
+void	load_config				(char *);
 void	parse					(char *);
 void	parse_001				(int, char *, char *, char *);
 void	parse_error				(int, char *, char *, char *);
@@ -64,6 +66,7 @@ extern	struct sendq
 struct 		ISL	
 {
 		char		server 	[STRING_SHORT];
+		char		chans 	[STRING_LONG];
 		long		port;
 		char		pass	[STRING_SHORT];
 		int			sockfd;
@@ -81,3 +84,11 @@ struct		IUL
 	long	idle;
 	struct	IUL *next;
 }   *iulhead;
+
+typedef	struct	config_struct	{
+	char	MYNICK 			[STRING_SHORT];		/* My nickname */
+	char	MYCHAN			[STRING_LONG];		/* My channels */
+	char	MYSERV			[STRING_LONG];		/* My servers/ports/pass */
+	long	REJOIN_ON_KICK;						/* Rejoin on kick? */
+} Config;
+

@@ -38,7 +38,11 @@ int			main			(int argc, char **argv)
 #endif
 
 	printf ("[*** Ron's IRC Bot %s ***]\r\n", PACKAGE_VERSION);
-
+	
+	/* Load config file. */
+	printf ("Loading dat/setup.ini\n");
+	load_config ("dat/setup.ini");
+	
 	alarm (AIL);
 	prepare_bot ();
 	register_bot ();

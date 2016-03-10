@@ -53,7 +53,7 @@ void		parse_mode			(int from_server, char *cmd, char *who, char *rest)
 
 void		parse_privmsg		(int from_server, char *cmd, char *who, char *rest)
 {
-		/* This will mostly initiate the chanserv() function */
+	printf ("hi\n");
 		
 }
 
