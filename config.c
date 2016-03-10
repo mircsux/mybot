@@ -8,6 +8,8 @@ void		load_config		(char *file)
 {
 	
 	FILE		*fp = NULL;
+	int			i = 0;
+	char		str 	[STRING_LONG] = { "\0" };
 	
 	config = malloc (sizeof (Config));
 	
@@ -24,6 +26,10 @@ void		load_config		(char *file)
 		return;
 	}
 	
+	while (fgets (str, STRING_LONG, fp))
+	{
+		printf ("config_line = %s\n", str);
+	}
 	strncpy (config->MYNICK, MYNICK, sizeof (config->MYNICK));
 	
 	printf ("config_array: MYNICK = %s\n", config->MYNICK);
