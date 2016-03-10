@@ -71,23 +71,18 @@ void		load_config		(char *file)
 		if ((opt = strtok (str, "=")) == NULL)
 			return;
 		
-		printf ("opt = %s\n", opt);
-
 		value = strtok (NULL, "");
 		if (value != NULL)
 			printf ("value = %s\n", value);
 		
-		
-		if (*opt == '\n') return;
 	
 		for (i = 0; cfg_opt[i].opt != NULL; i++)
 		{
 			if (stricmp (opt, cfg_opt->opt) == 0)
 			{
-				printf ("opt = %s, c_value = %d, value = %s", opt, cfg_opt->c_value, value);
-				if (do_config_set (cfg_opt->c_value, value) == 1)
+				if (do_config_set (cfg_opt->c_value, value) == 0)
 				{
-					printf ("value = %s\n", value);
+					printf ("Invalid option: %s\n", opt);
 				}
 			}	
 		}
