@@ -1,6 +1,7 @@
 /* Function Prototypes */
 
 int		create_connection 		(char *, char *, long);
+int		set_config_opt			(int, char *);
 int		get_random_number		(int);
 int		main					(int, char **);
 int		recv_data				(int, char *);
