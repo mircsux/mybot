@@ -96,9 +96,12 @@ void		del_iul_user (const char *nick, char *chan)
 	}
 }
 
-void	add_isl_server 		(char *adds, long addp, char *addpass, char *chans)
+void	add_isl_server 		(char *line)
 {
 	struct	ISL  *isl;
+	
+	if (line == NULL)
+		return;
 	
 	if ((isl = malloc (sizeof (struct ISL))) == NULL)
 	{
@@ -110,15 +113,45 @@ void	add_isl_server 		(char *adds, long addp, char *addpass, char *chans)
 	
 	if (isl != NULL)
 	{
-		strncpy (isl->server, adds, sizeof (isl->server));
-		isl->port = addp;
-		if (addpass != NULL)
-			strncpy (isl->pass, addpass, sizeof (isl->pass));
+		char 	*server = NULL, *pass = NULL;
+		char	*ptr = NULL;
+		long 	port = 0;
+		
+		/* Set server var, followed by others */
+		if ((server = strtok (line, ":")) == NULL)
+			return;
+		/* Port */
+		if ((ptr = strtok (NULL, ":")) == NULL)
+			return;
+		if ((port = strtol (ptr, (char **) NULL, port)) < 1)
+			return;
+		/* Pass */
+		pass = strtok (NULL, "");
+
+		strncpy (isl->server, server, sizeof (isl->server));
+		isl->port = port;
+		if (pass != NULL)
+			strncpy (isl->pass, pass, sizeof (isl->pass));
 		isl->next = isl;
 	}
 }
 
-void 	do_add_servers		(char *line)
+void	parse_add_servers	(char *line)
 {
 	printf ("line = %s\n", line);
+	
+}
+void 	do_add_servers		(char *line)
+{
+	char	*server = NULL, *pass = NULL;
+	char	*ptr = NULL;
+	char	*rest = NULL;
+	long	port = 0;
+	int 	first = 1;
+	
+	while ((ptr = strtok ((first==1?line:NULL), ",")) != NULL)
+	{
+		printf ("ptr = %s\n", ptr);
+		first = 0;
+	}
 }

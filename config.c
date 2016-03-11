@@ -21,8 +21,11 @@ struct
 	{   NULL,			0					}
 };
 
+/* Pretty self explanatory. */
+
 int			do_config_set 		(const  int	opt, 	char *value)
 {
+
 	if (value == NULL)
 		return (0);
 	
@@ -67,6 +70,8 @@ void		load_config		(char *file)
 	char		*opt = NULL, *value = NULL;
 	
 	config = malloc (sizeof (Config));
+	
+	memset (config, 0, sizeof (Config));
 	
 	if (config == NULL)
 	{
