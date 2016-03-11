@@ -2,7 +2,6 @@
 
 #include "includes.h"
 
-
 struct {
 	char	*cmd;
 	void	(*func)(int, char *, char *, char *);
@@ -24,8 +23,9 @@ struct {
 int		register_bot		(void)
 {
 	get_sendq_count (1);
-	Snow ("NICK %s\n", MYNICK);
-	Snow ("USER mybot %d %d :test bot %s\n", time(NULL), time(NULL), PACKAGE_VERSION);
+	printf ("things = %s %s\n", config->BOTNICK, config->BOTUSER);
+	Snow ("NICK %s\n", config->BOTNICK);
+	Snow ("USER %s %d %d :test bot %s\n", config->BOTUSER, time(NULL), time(NULL), PACKAGE_VERSION);
 	return (1);
 }
 

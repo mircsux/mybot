@@ -2,41 +2,58 @@
 
 #include "includes.h"
 
-extern	Config *config;
-
 #define		C_UNKNOWN		0
-#define		C_MYNICK		1
-#define		C_MYUSER		2
-
+#define		C_BOTNICK		1
+#define		C_BOTUSER		2
+#define		C_BOTNAME		3
 struct
 {
 	const	char	*opt;
 	const	int		c_value;
 }	cfg_opt [] =
 {
-	{	"BOTNICK",		C_MYNICK			},
+	{	"BOTNICK",		C_BOTNICK			},
+	{   "BOTUSER",		C_BOTUSER			},
+	{   "BOTNAME",		C_BOTNAME			},
 	{   NULL,			0					}
 };
 
-
-int			do_config_set 		(int	opt, 	char *value)
+int			do_config_set 		(const  int	opt, 	char *value)
 {
 	switch (opt)
 	{
-		case C_MYNICK:
+		case C_BOTNICK:
 		{
-			printf ("value = %s\n", value);
-			printf ("Set nick = %s\n", value);
-			strncpy (config->MYNICK, value, sizeof (config->MYNICK));
+			Config *c = config;
+			
+			if (value == NULL)
+				return (0);
+			strncpy (c->BOTNICK, value, sizeof (config->BOTNICK));
 			return (1);
 		}
+		
+		case C_BOTUSER:
+		{
+			if (value == NULL)
+			{
+				printf ("NULL\n");
+				return (1);
+			}
+			printf ("botuser val %s", value);
+			strncpy (config->BOTUSER, value, sizeof (config->BOTUSER));
+			return (1);
+		}
+		
 		default:
 		{
 			printf ("Invalid config setting\n");
 			return (0);
 		}
 	}
+	return (0);
 }
+
+
 
 void		load_config		(char *file)
 {
@@ -66,24 +83,24 @@ void		load_config		(char *file)
 	   
 	while (fgets (str, STRING_LONG, fp))
 	{
+		stripline (str);
 		/* NULL lines or lines that don't do us any good?
 		   Just ignore them. */
 		if ((opt = strtok (str, "=")) == NULL)
 			return;
 		
 		value = strtok (NULL, "");
-		if (value != NULL)
-			printf ("value = %s\n", value);
+		if (value == NULL)
+			return;
 		
-	
-		for (i = 0; cfg_opt[i].opt != NULL; i++)
+		for (i = 0; cfg_opt[i].opt; i++)
 		{
-			if (stricmp (opt, cfg_opt->opt) == 0)
+			int	retval = 0;
+			
+			if (stricmp (opt, cfg_opt[i].opt) == 0)
 			{
-				if (do_config_set (cfg_opt->c_value, value) == 0)
-				{
-					printf ("Invalid option: %s\n", opt);
-				}
+				retval = do_config_set (cfg_opt[i].c_value, value);
+				printf ("retval = %d\n", retval);
 			}	
 		}
 	}   /*End WHILE */

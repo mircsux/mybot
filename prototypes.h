@@ -87,9 +87,12 @@ struct		IUL
 }   *iulhead;
 
 typedef	struct	config_struct	{
-	char	MYNICK 			[STRING_SHORT];		/* My nickname */
-	char	MYCHAN			[STRING_LONG];		/* My channels */
-	char	MYSERV			[STRING_LONG];		/* My servers/ports/pass */
+	char	BOTNICK 		[STRING_SHORT];		/* My nickname */
+	char	BOTCHAN			[STRING_LONG];		/* My channels */
+	char	BOTUSER			[STRING_SHORT];		/* My username */
+	char	BOTNAME			[STRING_SHORT];		/* My IRCNAME */
+	char	BOTSERV			[STRING_LONG];		/* My servers/ports/pass */
 	long	REJOIN_ON_KICK;						/* Rejoin on kick? */
 } Config;
 
+extern	Config *config;
