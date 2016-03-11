@@ -23,9 +23,8 @@ struct {
 int		register_bot		(void)
 {
 	get_sendq_count (1);
-	printf ("things = %s %s\n", config->BOTNICK, config->BOTUSER);
 	Snow ("NICK %s\n", config->BOTNICK);
-	Snow ("USER %s %d %d :test bot %s\n", config->BOTUSER, time(NULL), time(NULL), PACKAGE_VERSION);
+	Snow ("USER %s %d %d :%s\n", config->BOTUSER, time(NULL), time(NULL), config->BOTNAME);
 	return (1);
 }
 

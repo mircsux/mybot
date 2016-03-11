@@ -20,30 +20,26 @@ struct
 
 int			do_config_set 		(const  int	opt, 	char *value)
 {
+	if (value == NULL)
+		return (0);
+	
 	switch (opt)
 	{
 		case C_BOTNICK:
 		{
-			Config *c = config;
-			
-			if (value == NULL)
-				return (0);
-			strncpy (c->BOTNICK, value, sizeof (config->BOTNICK));
+			strncpy (config->BOTNICK, value, sizeof (config->BOTNICK));
 			return (1);
 		}
 		
 		case C_BOTUSER:
 		{
-			if (value == NULL)
-			{
-				printf ("NULL\n");
-				return (1);
-			}
 			printf ("botuser val %s", value);
 			strncpy (config->BOTUSER, value, sizeof (config->BOTUSER));
 			return (1);
 		}
-		
+		case C_BOTNAME:
+			strncpy (config->BOTNAME, value, sizeof (config->BOTNAME));
+			return (1);
 		default:
 		{
 			printf ("Invalid config setting\n");
