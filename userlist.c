@@ -117,3 +117,8 @@ void	add_isl_server 		(char *adds, long addp, char *addpass, char *chans)
 		isl->next = isl;
 	}
 }
+
+void 	do_add_servers		(char *line)
+{
+	printf ("line = %s\n", line);
+}

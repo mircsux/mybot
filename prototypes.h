@@ -18,6 +18,7 @@ int		stricmp 				(const char *, const char *);
 
 void    clear_sendq 			(long, long);
 void	S 						(const char *, ...);
+void	do_add_servers			(char *);
 void	add_iul_user			(char *, char *, char *, long);
 void	add_isl_server 			(char *, long, char *, char *);
 void	del_iul_user 			(const char *, char *);

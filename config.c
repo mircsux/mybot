@@ -6,6 +6,8 @@
 #define		C_BOTNICK		1
 #define		C_BOTUSER		2
 #define		C_BOTNAME		3
+#define		C_BOTSERV		4
+
 struct
 {
 	const	char	*opt;
@@ -15,6 +17,7 @@ struct
 	{	"BOTNICK",		C_BOTNICK			},
 	{   "BOTUSER",		C_BOTUSER			},
 	{   "BOTNAME",		C_BOTNAME			},
+	{   "BOTSERV",		C_BOTSERV			},
 	{   NULL,			0					}
 };
 
@@ -40,6 +43,10 @@ int			do_config_set 		(const  int	opt, 	char *value)
 		case C_BOTNAME:
 			strncpy (config->BOTNAME, value, sizeof (config->BOTNAME));
 			return (1);
+		case C_BOTSERV:
+			do_add_servers (value);
+			return (1);
+			
 		default:
 		{
 			printf ("Invalid config setting\n");
