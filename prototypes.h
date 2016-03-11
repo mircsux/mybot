@@ -8,7 +8,7 @@ int		recv_data				(int, char *);
 int		Send 					(void);
 int		send_data				(int, char *);
 int		writeln					(const char *);
-int		readln 					(void);
+int		readln 					(int);
 int		try_server_command		(int, char *, char *, char *);
 
 int		register_bot			(void);
@@ -24,7 +24,7 @@ void	add_isl_server 			(char *);
 void	del_iul_user 			(const char *, char *);
 void	del_sendq 				(long);
 void	load_config				(char *);
-void	parse					(char *);
+void	parse					(int, char *);
 void	parse_001				(int, char *, char *, char *);
 void	parse_error				(int, char *, char *, char *);
 void	parse_end_of_who		(int, char *, char *, char *);
@@ -36,7 +36,7 @@ void	parse_part				(int, char *, char *, char *);
 void	parse_ping				(int, char *, char *, char *);
 void	parse_privmsg			(int, char *, char *, char *);
 void	parse_who				(int, char *, char *, char *);
-void	parse_server_message	(fd_set *);
+void	parse_server_message	(int, fd_set *);
 void	prepare_bot				(void);
 void	sig_alrm				(int);
 void	sig_hup					(int);
@@ -69,9 +69,13 @@ struct 		ISL
 {
 		char		server 	[STRING_SHORT];
 		char		chans 	[STRING_LONG];
-		long		port;
 		char		pass	[STRING_SHORT];
+		char		nick	[STRING_SHORT];
+		long		port;
 		int			sockfd;
+		struct		timeval	timeout;
+		int			Connected;
+		char		LINE	[STRING_LONG];
 		struct		ISL		*next;
 		
 }  *islhead;

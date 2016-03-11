@@ -3,13 +3,13 @@
 #include "includes.h"
 
 void
-parse_server_message (fd_set * read_fds)
+parse_server_message (int sockfd, fd_set * read_fds)
 {
         if (FD_ISSET (sockfd, read_fds))
         {
-                if (readln ())
+                if (readln (sockfd))
                 {
-                        parse (myline);
+                        parse (sockfd, myline);
                 }
                 else
 				{
@@ -18,7 +18,7 @@ parse_server_message (fd_set * read_fds)
 		}
 }
 
-void		parse		(char	*line)
+void		parse		(int sockfd, char	*line)
 {	
 	char	*who = NULL;
 	char	*cmd = NULL;

@@ -62,13 +62,14 @@ int			main			(int argc, char **argv)
 			case -1:
 			   break;
 			default:
-			   parse_server_message (&fdvar);
+			   parse_server_message (sockfd, &fdvar);
 			   break;
 	    }
 	}
 	
 	/* Close socket */
 	close (sockfd);
+	free (config);
 	return (0);
 	
 }
