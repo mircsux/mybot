@@ -142,7 +142,7 @@ void	do_add_servers 		(char *line)
 	char 	*ptr, *begptr = line, *ptr2 = NULL;
 	long	port = 0;
 	
-	 ptr = get_word(1, line, ',');
+	 ptr = get_word(5, line, ',');
 	 printf ("ptr = %s\n", ptr);
 	
 	

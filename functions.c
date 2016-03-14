@@ -47,15 +47,24 @@ char	*get_word		(int num, char *str, int sep)
 	{
 		if (str[i] == sep)
 		{
-			sepcount++;
+			i++; /* Trim out sep char */
+			sepcount++; 
 			j = 0;
-			i++;
 		}
 
 		if (sepcount == num)
 			return (ptr);
+		
 
 		ptr[j] = str[i];
+	}
+
+	/* If number of seperators counted is less than 
+	   the one we called for, return NULL ptr. */
+	if (sepcount < num)
+	{
+		ptr = NULL;
+		return (ptr);
 	}
 	return (ptr);
 }
