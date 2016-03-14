@@ -16,6 +16,7 @@ int		get_sendq_count 		(long);
 int		Snow 					(const char *, ...);
 int		stricmp 				(const char *, const char *);
 
+char	*get_word				(int, char *, int);
 void    clear_sendq 			(long, long);
 void	S 						(const char *, ...);
 void	do_add_servers			(char *);

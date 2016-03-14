@@ -30,3 +30,36 @@ stricmp (const char *s1, const char *s2)
                 return -1;
         return 1;
 }
+
+char	*get_word		(int num, char *str, int sep)
+{
+	char 	*ptr = NULL;
+	int 	i = 0, j = 0;
+	int		sepcount = 0;
+	
+	if ((ptr = malloc (sizeof (str))) == NULL)
+	{
+		printf ("Memory allocation failure in get_word\n");
+		exit (EXIT_FAILURE);
+	}
+	
+	for (i = 0, j = 0; str[i]; i++, j++)
+	{
+		if (str[i] == sep)
+		{
+			sepcount++;
+			j = 0;
+			i++;
+		}
+
+		if (sepcount == num)
+			return (ptr);
+
+		ptr[j] = str[i];
+	}
+	return (ptr);
+}
+
+
+	
+	

@@ -59,8 +59,6 @@ int			do_config_set 		(const  int	opt, 	char *value)
 	return (0);
 }
 
-
-
 void		load_config		(char *file)
 {
 	

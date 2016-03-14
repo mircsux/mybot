@@ -136,22 +136,14 @@ void	add_isl_server 		(char *line)
 	}
 }
 
-void	parse_add_servers	(char *line)
+void	do_add_servers 		(char *line)
 {
-	printf ("line = %s\n", line);
-	
-}
-void 	do_add_servers		(char *line)
-{
-	char	*server = NULL, *pass = NULL;
-	char	*ptr = NULL;
-	char	*rest = NULL;
+	char 	*server = NULL, *pass = NULL;
+	char 	*ptr, *begptr = line, *ptr2 = NULL;
 	long	port = 0;
-	int 	first = 1;
 	
-	while ((ptr = strtok ((first==1?line:NULL), ",")) != NULL)
-	{
-		printf ("ptr = %s\n", ptr);
-		first = 0;
-	}
+	 ptr = get_word(1, line, ',');
+	 printf ("ptr = %s\n", ptr);
+	
+	
 }
