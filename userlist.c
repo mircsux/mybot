@@ -141,9 +141,14 @@ void	do_add_servers 		(char *line)
 	char 	*server = NULL, *pass = NULL;
 	char 	*ptr, *begptr = line, *ptr2 = NULL;
 	long	port = 0;
+	int i = 0;
+
 	
-	 ptr = get_word(5, line, ',');
-	 printf ("ptr = %s\n", ptr);
-	
+	server = get_word (0, line, ',');
+	printf ("server = %s\n", server);
+	server = get_word (1, line, ',');
+	printf ("server = %s\n", server);
+	server = get_word (2, line, ',');
+	printf ("server = %s\n", server);
 	
 }

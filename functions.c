@@ -31,31 +31,34 @@ stricmp (const char *s1, const char *s2)
         return 1;
 }
 
+/* Return num word from object pointed to by str, 
+   using sep as a delimeter. */
 char	*get_word		(int num, char *str, int sep)
 {
 	char 	*ptr = NULL;
 	int 	i = 0, j = 0;
 	int		sepcount = 0;
 	
-	if ((ptr = malloc (sizeof (str))) == NULL)
+	if ((ptr = malloc (STRING_LONG)) == NULL)
 	{
 		printf ("Memory allocation failure in get_word\n");
 		exit (EXIT_FAILURE);
 	}
-	
-	for (i = 0, j = 0; str[i]; i++, j++)
+
+	for (i = 0, j = 0, sepcount = 0; str[i]; i++, j++)
 	{
 		if (str[i] == sep)
 		{
 			i++; /* Trim out sep char */
 			sepcount++; 
 			j = 0;
+
+			if (sepcount == num)
+			{	
+				return (ptr);
+			}
 		}
-
-		if (sepcount == num)
-			return (ptr);
-		
-
+	
 		ptr[j] = str[i];
 	}
 
@@ -66,6 +69,7 @@ char	*get_word		(int num, char *str, int sep)
 		ptr = NULL;
 		return (ptr);
 	}
+	
 	return (ptr);
 }
 
