@@ -143,12 +143,13 @@ void	do_add_servers 		(char *line)
 	long	port = 0;
 	int i = 0;
 
-	
-	server = get_word (0, line, ',');
-	printf ("server = %s\n", server);
-	server = get_word (1, line, ',');
-	printf ("server = %s\n", server);
-	server = get_word (2, line, ',');
-	printf ("server = %s\n", server);
+	do
+	{
+		if ((server = get_word (i++, line, ',')) != NULL)
+		{
+			printf ("server(%d) = %s\n", i, server);
+		}
+	}
+	while (server != NULL);
 	
 }
