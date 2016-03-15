@@ -139,17 +139,32 @@ void	add_isl_server 		(char *line)
 void	do_add_servers 		(char *line)
 {
 	char 	*server = NULL, *pass = NULL;
-	char 	*ptr, *begptr = line, *ptr2 = NULL;
+	char 	*ptr = NULL, *ptr2 = NULL;
 	long	port = 0;
 	int i = 0;
 
+	if ((ptr = malloc (STRING_LONG)) == NULL)
+		return;
+	if ((pass = malloc (STRING_LONG)) == NULL)
+		return;
+	if ((ptr2 = malloc (STRING_LONG)) == NULL)
+		return;
+	
 	do
 	{
-		if ((server = get_word (i++, line, ',')) != NULL)
+		i++;
+		if ((ptr = get_word (i, line, ',')) != NULL)
 		{
-			printf ("server(%d) = %s\n", i, server);
+			if ((server = get_word (1, ptr, ':')) == NULL)
+				return;
+			ptr2 = get_word(2, ptr, ':');
+			pass = get_word(3, ptr, ':');
+			printf ("server = %s\n", server);
+			printf ("ptr2 = %s\n", ptr2);
+			printf ("pass = %s\n", pass);
+			
+			
 		}
 	}
-	while (server != NULL);
-	
+	while (ptr != NULL);
 }

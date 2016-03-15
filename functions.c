@@ -41,30 +41,36 @@ char	*get_word		(int num, char *str, int sep)
 	
 	if ((ptr = malloc (STRING_LONG)) == NULL)
 	{
-		printf ("Memory allocation failure in get_word\n");
+		printf ("Out of memory in get_word\n");
 		exit (EXIT_FAILURE);
+		
 	}
-
+	
+	memset (ptr, 0, sizeof (STRING_LONG));
+	
 	for (i = 0, j = 0, sepcount = 0; str[i]; i++, j++)
 	{
 		if (str[i] == sep)
 		{
 			i++; /* Trim out sep char */
 			sepcount++; 
-			j = 0;
 
 			if (sepcount == num)
 			{	
+				ptr[j++] = '\0';
 				return (ptr);
 			}
+		
+			j = 0;
 		}
 	
 		ptr[j] = str[i];
 	}
 
+	ptr[j++] = '\0';
 	/* If number of seperators counted is less than 
 	   the one we called for, return NULL ptr. */
-	if (sepcount < num)
+	if (sepcount < (num-1))
 	{
 		ptr = NULL;
 		return (ptr);
