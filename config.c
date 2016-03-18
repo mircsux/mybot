@@ -39,17 +39,18 @@ int			do_config_set 		(const  int	opt, 	char *value)
 		
 		case C_BOTUSER:
 		{
-			printf ("botuser val %s", value);
 			strncpy (config->BOTUSER, value, sizeof (config->BOTUSER));
 			return (1);
 		}
 		case C_BOTNAME:
-			strncpy (config->BOTNAME, value, sizeof (config->BOTNAME));
+		{	strncpy (config->BOTNAME, value, sizeof (config->BOTNAME));
 			return (1);
+		}
 		case C_BOTSERV:
+		{
 			do_add_servers (value);
 			return (1);
-			
+		}
 		default:
 		{
 			printf ("Invalid config setting\n");
@@ -106,7 +107,7 @@ void		load_config		(char *file)
 			if (stricmp (opt, cfg_opt[i].opt) == 0)
 			{
 				retval = do_config_set (cfg_opt[i].c_value, value);
-				printf ("retval = %d\n", retval);
+				/* Do stuff with retval here eventually */
 			}	
 		}
 	}   /*End WHILE */

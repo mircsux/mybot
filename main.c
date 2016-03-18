@@ -58,6 +58,11 @@ int			main			(int argc, char **argv)
 			case 0:
 			   break;
 			case -1:
+			   if (!alarmed)
+			   {
+				 /* Stuff */   
+			   }
+			   else { alarmed = 0; }
 			   break;
 			default:
 			   parse_server_message (sockfd, &fdvar);
