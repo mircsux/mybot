@@ -5,8 +5,6 @@
 
 int			main			(int argc, char **argv)
 {
-	FILE	*fp = NULL;
-
 	fd_set	fdvar;
 	struct	timeval		timeout;
 	
@@ -70,6 +68,10 @@ int			main			(int argc, char **argv)
 	/* Close socket */
 	close (sockfd);
 	free (config);
+	free (islhead);
+	free (iulhead);
+	free (sendqhead);
+	free (sendqtail);
 	return (0);
 	
 }

@@ -24,6 +24,7 @@ void	add_iul_user			(char *, char *, char *, long);
 void	add_isl_server 			(char *);
 void	del_iul_user 			(const char *, char *);
 void	del_sendq 				(long);
+void	do_chanserv				(char *);
 void	load_config				(char *);
 void	parse					(int, char *);
 void	parse_001				(int, char *, char *, char *);
