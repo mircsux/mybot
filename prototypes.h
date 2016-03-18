@@ -69,9 +69,7 @@ extern	struct sendq
 struct 		ISL	
 {
 		char		server 	[STRING_SHORT];
-		char		chans 	[STRING_LONG];
 		char		pass	[STRING_SHORT];
-		char		nick	[STRING_SHORT];
 		long		port;
 		int			sockfd;
 		struct		timeval	timeout;

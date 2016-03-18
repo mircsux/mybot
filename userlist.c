@@ -165,7 +165,7 @@ void	do_add_servers 		(char *line)
 
 			}
 			
-			printf ("ptr2 = %s\n", ptr2);
+			/* Just return if strtol fails. */
 			if ((port = strtol (ptr2, (char **) NULL, port)) < 1)
 			{
 				return;
