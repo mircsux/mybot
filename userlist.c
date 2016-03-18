@@ -143,28 +143,52 @@ void	do_add_servers 		(char *line)
 	long	port = 0;
 	int i = 0;
 
-	if ((ptr = malloc (STRING_LONG)) == NULL)
-		return;
-	if ((pass = malloc (STRING_LONG)) == NULL)
-		return;
-	if ((ptr2 = malloc (STRING_LONG)) == NULL)
-		return;
 	
 	do
 	{
 		i++;
+		/* We have to do this because for some reason
+		   the iterations through after the first, end
+		   up being like LONG_MAX or whatever, not even
+		   sure why, but this fixes it. */
+		port = 0;
 		if ((ptr = get_word (i, line, ',')) != NULL)
 		{
 			if ((server = get_word (1, ptr, ':')) == NULL)
 				return;
-			ptr2 = get_word(2, ptr, ':');
-			pass = get_word(3, ptr, ':');
-			printf ("server = %s\n", server);
-			printf ("ptr2 = %s\n", ptr2);
-			printf ("pass = %s\n", pass);
+			/* Get char version of port, then convert using
+			   strtol */
+			if ((ptr2 = get_word(2, ptr, ':')) == NULL)
+			{
+				printf ("poop\n");
+				return;
+
+			}
 			
+			printf ("ptr2 = %s\n", ptr2);
+			if ((port = strtol (ptr2, (char **) NULL, port)) < 1)
+			{
+				return;
+			}
+			printf ("port = %ld\n", port);
+			pass = get_word (3, ptr, ':');
+			if (pass == NULL)
+			{
+					if ((pass = malloc (STRING_SHORT)) == NULL)
+					{
+						printf ("malloc fail in do_add_servers\n");
+						exit (EXIT_FAILURE);
+					}
+					memset (pass, 0, STRING_LONG);
+					strncpy (pass, "NULL", STRING_LONG);
+			}
+			
+			printf ("server(%d)=%s:%ld:%s\n", i, server, port, pass);
 			
 		}
+			
 	}
 	while (ptr != NULL);
+
+	free (ptr);
 }
