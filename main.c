@@ -57,7 +57,7 @@ int			main			(int argc, char **argv)
 		FD_ZERO (&fdvar);
 	    FD_SET (sockfd, &fdvar);
 		
-		switch (select (NFDBITS, &fdvar, (fd_set *) NULL, (fd_set *) NULL, &timeout))
+		switch (select (NFDBITS, &fdvar, NULL, NULL, &timeout))
 		{
 			case 0:
 			   break;
