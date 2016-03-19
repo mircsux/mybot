@@ -5,8 +5,10 @@
 
 int			main			(int argc, char **argv)
 {
+	int 	i = 0;
 	fd_set	fdvar;
 	struct	timeval		timeout;
+	struct	ISL			*isl = islhead;
 	
 #ifdef		SA_NOCLDSTOP
 	struct	sigaction	newact;
@@ -45,13 +47,15 @@ int			main			(int argc, char **argv)
 	prepare_bot ();
 	register_bot ();
 
+	printf_servers();
+	
 	while (1)
 	{
 		timeout.tv_sec = WSEC;
 		timeout.tv_usec = USEC;
 		
 		FD_ZERO (&fdvar);
-	        FD_SET (sockfd, &fdvar);
+	    FD_SET (sockfd, &fdvar);
 		
 		switch (select (NFDBITS, &fdvar, (fd_set *) NULL, (fd_set *) NULL, &timeout))
 		{

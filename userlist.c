@@ -96,14 +96,28 @@ void		del_iul_user (const char *nick, char *chan)
 	}
 }
 
-void	add_isl_server 		(char *line)
+void 	printf_servers		(void)
 {
-	struct	ISL  *isl;
+	struct	ISL *isl = islhead;
 	
-	if (line == NULL)
-		return;
+	while (isl)
+	{
+		printf ("isl->server = %s\n", isl->server);
+		isl = isl->next;
+	}
+}
+
+void	add_isl_server 		(char *server, long port, char *pass)
+{
+	struct	ISL  *isl, *n;
 	
-	if ((isl = malloc (sizeof (struct ISL))) == NULL)
+	n = islhead;
+	
+	if (server == NULL || port == 0)
+			return;
+	
+	isl = malloc (sizeof (struct ISL));
+	if (isl == NULL)
 	{
 		printf ("Out of memory in add_isl_server().\n");
 		return;
@@ -111,29 +125,18 @@ void	add_isl_server 		(char *line)
 	
 	memset (isl, 0, sizeof (struct ISL));
 	
-	if (isl != NULL)
-	{
-		char 	*server = NULL, *pass = NULL;
-		char	*ptr = NULL;
-		long 	port = 0;
-		
-		/* Set server var, followed by others */
-		if ((server = strtok (line, ":")) == NULL)
-			return;
-		/* Port */
-		if ((ptr = strtok (NULL, ":")) == NULL)
-			return;
-		if ((port = strtol (ptr, (char **) NULL, port)) < 1)
-			return;
-		/* Pass */
-		pass = strtok (NULL, "");
-
-		strncpy (isl->server, server, sizeof (isl->server));
-		isl->port = port;
-		if (pass != NULL)
-			strncpy (isl->pass, pass, sizeof (isl->pass));
-		isl->next = isl;
-	}
+	if (isl == NULL)
+		return;
+	
+	/* Set server var, followed by others */
+	strncpy (isl->server, server, sizeof (isl->server));
+	isl->port = port;
+	if (pass != NULL)
+		strncpy (isl->pass, pass, sizeof (isl->pass));
+	isl->next = islhead;
+	islhead = isl;
+	
+	printf ("Added server %s:%ld:%s\n", server, port, pass);
 }
 
 void	do_add_servers 		(char *line)
@@ -143,6 +146,10 @@ void	do_add_servers 		(char *line)
 	long	port = 0;
 	int i = 0;
 
+	if (line == NULL)
+		return;
+
+	ptr = malloc (sizeof (line));
 	
 	do
 	{
@@ -174,7 +181,7 @@ void	do_add_servers 		(char *line)
 			pass = get_word (3, ptr, ':');
 			if (pass == NULL)
 			{
-					if ((pass = malloc (STRING_SHORT)) == NULL)
+					if ((pass = malloc (STRING_LONG)) == NULL)
 					{
 						printf ("malloc fail in do_add_servers\n");
 						exit (EXIT_FAILURE);
@@ -184,7 +191,7 @@ void	do_add_servers 		(char *line)
 			}
 			
 			printf ("server(%d)=%s:%ld:%s\n", i, server, port, pass);
-			
+			add_isl_server (server, port, pass);
 		}
 			
 	}

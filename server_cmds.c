@@ -20,6 +20,10 @@ struct {
 	{  NULL	,			NULL					}
 };
 
+void		prepare_servers		(void)
+{
+	
+}
 int		register_bot		(void)
 {
 	get_sendq_count (1);
