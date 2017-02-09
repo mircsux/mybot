@@ -6,7 +6,7 @@ long	CONNECT_WAIT_TIMEOUT	= 10;
 long	AIL666 					= 0;
 long	AIL8					= 0;
 
-char	HOSTNAME[STRING_SHORT]	= "localhost";
+char	HOSTNAME[STRING_SHORT]	= "irc.undernet.org";
 char	VHOST	[STRING_SHORT]	= "0";
 char	MYNICK	[STRING_SHORT] 	= "mybot";
 
