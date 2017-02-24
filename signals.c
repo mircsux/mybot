@@ -7,8 +7,21 @@ void		sig_alrm (int unused)
 {
 	alarmed = 1;
 	alarm (AIL);
+	
+	/* Increase seconds count. */
+	timer++;
+	
+	LastInput += AIL;
+	if (LastInput >= 500)
+	{
+		LastInput = 0;
+		printf ("\nNo response from server in 5 mins, reconnecting.\n");
+		prepare_bot ();
+		register_bot();
+	}
+	
+	
 	AIL8 += AIL;
-
 	if (AIL8 >= SEND_DELAY)
 	{
 		AIL8 = 0;
@@ -21,6 +34,14 @@ void		sig_alrm (int unused)
 		S ("PING :%s\n", HOSTNAME);
 	}
 	
+	RoundTimer += AIL;
+	if (RoundTimer >= 60)
+	{
+		RoundTimer = 0;
+		S ("PRIVMSG %s :Round_Timer = 0\n", config->BOTCHAN);
+	}
+	
+
 }
 
 void		sig_segv (int unused)
@@ -30,7 +51,8 @@ void		sig_segv (int unused)
 	/* Grab our pid number */
 	p = getpid ();
 	
-	printf (".: Aborting process %ld, SIG_SEGV.\n", p);
+	S ("QUIT :Caught signal SIG_SEGV (Segmentation Fault). We are bailing.\n");
+	printf ("... SIG_SEGV\n");
 	
 	if (fork () > 0)
 	{
@@ -43,5 +65,11 @@ void		sig_segv (int unused)
 void	sig_hup 	(int unused)
 {
 	printf (".: SIGHUP - Restarting the program.\n");
+	exit (0);
+}
+
+void	sig_int		(int unused)
+{
+	S ("PRIVMSG %s :Interrupted from the console. Show uptime here\n", config->BOTCHAN);
 	exit (0);
 }

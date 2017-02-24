@@ -31,10 +31,15 @@ int			main			(int argc, char **argv)
         sigemptyset (&newact.sa_mask);
         newact.sa_flags = 0;
         sigaction (SIGHUP, &newact, NULL);
+		newact.sa_handler = sig_int;
+		sigemptyset(&newact.sa_mask);
+		newact.sa_flags = 0;
+		sigaction (SIGINT, &newact, NULL);
 #else
         signal (SIGALRM, sig_alrm);
         signal (SIGSEGV, sig_segv);
         signal (SIGHUP, sig_hup);
+		signal (SIGINT, sig_int);
 #endif
 
 	printf ("[*** Ron's IRC Bot %s ***]\r\n", PACKAGE_VERSION);
@@ -42,6 +47,8 @@ int			main			(int argc, char **argv)
 	/* Load config file. */
 	printf ("Loading dat/setup.ini\n");
 	load_config ("dat/setup.ini");
+	
+	Start_Time = time (NULL);
 	
 	alarm (AIL);
 	prepare_bot ();
@@ -62,12 +69,16 @@ int			main			(int argc, char **argv)
 			case 0:
 			   break;
 			case -1:
-			   if (!alarmed)
-			   {
-				 /* Stuff */   
-			   }
-			   else { alarmed = 0; }
-			   break;
+				if (!alarmed)
+				{
+					sleep (RECHECK);
+				}   
+				else 
+				{ 
+					alarmed = 0; 
+				}
+				break;
+				
 			default:
 			   parse_server_message (sockfd, &fdvar);
 			   break;
@@ -84,3 +95,4 @@ int			main			(int argc, char **argv)
 	return (0);
 	
 }
+

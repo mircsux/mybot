@@ -10,6 +10,7 @@
 #include	<stdlib.h>
 #include	<stdarg.h>
 #include	<stdio.h>
+#include 	<time.h>
 #include	<sys/socket.h>
 #include 	<arpa/inet.h>
 #include 	<sys/time.h>

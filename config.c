@@ -7,17 +7,20 @@
 #define		C_BOTUSER		2
 #define		C_BOTNAME		3
 #define		C_BOTSERV		4
-
+#define		C_BOTCHAN		5
+#define		C_SCOREFILE		6
 struct
 {
 	const	char	*opt;
 	const	int		c_value;
 }	cfg_opt [] =
 {
-	{	"BOTNICK",		C_BOTNICK			},
+	{   "BOTNICK",		C_BOTNICK			},
 	{   "BOTUSER",		C_BOTUSER			},
 	{   "BOTNAME",		C_BOTNAME			},
+	{   "BOTCHAN", 		C_BOTCHAN			},
 	{   "BOTSERV",		C_BOTSERV			},
+	{   "SCORE_FILE", 	C_SCOREFILE			},
 	{   NULL,			0					}
 };
 
@@ -51,6 +54,17 @@ int			do_config_set 		(const  int	opt, 	char *value)
 			do_add_servers (value);
 			return (1);
 		}
+		case C_SCOREFILE:
+		{
+			strncpy (config->SCORE_FILE, value, sizeof (config->SCORE_FILE));
+			return (1);
+		}
+		case C_BOTCHAN:
+		{
+			strncpy (config->BOTCHAN, value, sizeof (config->BOTCHAN));
+			return (1);
+		}
+
 		default:
 		{
 			printf ("Invalid config setting\n");
@@ -114,3 +128,18 @@ void		load_config		(char *file)
 	
 }
 
+/* Print things to a "filename" */
+
+void	my_log	(char	*filename, char *format,...)
+{
+	va_list		arglist;
+	FILE		*fp = NULL;
+	
+	if ((fp = fopen (filename, "a")) == NULL)
+		return;
+		
+	va_start 	(arglist, format);
+	vfprintf 	(fp, format, arglist);
+	va_end 		(arglist);
+	fclose		(fp);
+}

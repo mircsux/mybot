@@ -1,4 +1,4 @@
-/* Commands from servers. */
+/* Commands from servers and users. */
 
 #include "includes.h"
 
@@ -20,6 +20,16 @@ struct {
 	{  NULL	,			NULL					}
 };
 
+struct {
+	char	*cmd;
+	void	(*func)(char *, char *, char *, char *);
+}   user_command[] =
+{
+	{ "INFO",			do_info					},
+	{  NULL,			NULL					}
+};
+
+
 void		prepare_servers		(void)
 {
 	
@@ -30,6 +40,28 @@ int		register_bot		(void)
 	Snow ("NICK %s\n", config->BOTNICK);
 	Snow ("USER %s %d %d :%s\n", config->BOTUSER, time(NULL), time(NULL), config->BOTNAME);
 	return (1);
+}
+
+/* try_user_command() searches the User command structure for the command
+   specified by cmd, runs it's corresponding function call and returns
+   1 for success, 0 for fail. Same for try_server_command, except that one
+   is obviously, for server commands. */
+   
+int		try_user_command		(char *cmd, char *chan, char *who, char *rest)
+{
+	int 	i = 0;
+	
+	for (i = 0; user_command[i].cmd; i++)
+	{
+		if (stricmp (cmd, user_command[i].cmd) == 0)
+		{
+			user_command[i].func (cmd, chan, who, rest);
+			/* Success */
+			return (1);
+		}
+	}
+	/* No match */
+	return (0);
 }
 
 int		try_server_command		(int from_server, char *cmd, char *who, char *rest)
@@ -56,7 +88,39 @@ void		parse_mode			(int from_server, char *cmd, char *who, char *rest)
 
 void		parse_privmsg		(int from_server, char *cmd, char *who, char *rest)
 {
-	printf ("hi\n");
+/* cmd = PRIVMSG  who = ron!ron@ron.users.undernet.org, rest = #poop :roll 1d3
+ */
+	char *chan = NULL;
+	char *command = NULL;
+	char	*params = NULL;
+	
+	if ((chan = strtok (rest, " ")) == NULL)
+		return;
+
+	/* Make sure we are dealing with a message from a CHANNEL USER. */
+	if (*chan != '#')
+		return;
+
+	if ((command = strtok (NULL, " ")) == NULL)
+		return;
+
+	/* Strip the leading ':' character if there is one. */
+	if (*command == ':')
+		command++;
+		
+	/* Check if there is a command character present, only act if so. */
+	if (*command != '!')
+		return;
+	
+	command++;
+	
+	/* Propogate extra parameters or text. If this ends up being empty, 
+	   don't worry about. Some user commands require no parameters. */
+	params = strtok (NULL, "");
+
+	/* Check if this is a valid user command and act appropriately. */
+	if (try_user_command (command, chan, who, params) == 1)
+		return;
 		
 }
 
@@ -82,15 +146,15 @@ void		parse_error			(int fs, char *cmd, char *who, char *rest)
 }
 void		parse_nick			(int fs, char *cmd, char *who, char *rest)
 {
-	printf ("hi(nick)\n");
+	/* printf ("hi(nick)\n"); */
 }
 
 void		parse_001			(int fs, char *cmd, char *who, char *rest)
 {
 	/* Use this to determine if we are successfully connected
-	   to a server.*/
+	   to a server. Do some stuff we do when connecting. */
 	   
-	   S ("JOIN #poop\n");
+	   S ("JOIN :%s\n", config->BOTCHAN);
 }
 
 void		parse_end_of_who	(int fs, char *cmd, char *who, char *rest)
@@ -125,7 +189,7 @@ void		parse_join			(int fs, char *cmd, char *who, char *rest)
 			return;
 		}
 
-		printf ("who the room\n");
+		/* printf ("who the room\n"); */
 		
 		BurstingWho = YES;
 		S ("WHO %s\n", rest);
@@ -188,7 +252,7 @@ void	    parse_part (int fs, char *cmd, char *who, char *rest)
 	char  *nick = NULL, *chan = NULL;
 	
 	/* nick -> chan */
-	printf ("who = %s, rest = %s\n", who, rest);
+	/* printf ("who = %s, rest = %s\n", who, rest); */
 
 	if ((nick = strtok (who, "!")) == NULL)
 		return;

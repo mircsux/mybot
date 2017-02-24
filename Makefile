@@ -96,7 +96,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_mybot_OBJECTS = config.$(OBJEXT) chanserv.$(OBJEXT) main.$(OBJEXT) \
 	parse.$(OBJEXT) sockets.$(OBJEXT) vars.$(OBJEXT) \
 	random.$(OBJEXT) sendq.$(OBJEXT) server_cmds.$(OBJEXT) \
-	functions.$(OBJEXT) signals.$(OBJEXT) userlist.$(OBJEXT)
+	functions.$(OBJEXT) signals.$(OBJEXT) usercmds.$(OBJEXT) \
+	userlist.$(OBJEXT)
 mybot_OBJECTS = $(am_mybot_OBJECTS)
 mybot_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -172,12 +173,12 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/ron/mybot/missing aclocal-1.14
+ACLOCAL = aclocal-1.14
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/ron/mybot/missing autoconf
-AUTOHEADER = ${SHELL} /home/ron/mybot/missing autoheader
-AUTOMAKE = ${SHELL} /home/ron/mybot/missing automake-1.14
+AUTOCONF = autoconf
+AUTOHEADER = autoheader
+AUTOMAKE = automake-1.14
 AWK = gawk
 CC = gcc
 CFLAGS = -g -O2
@@ -200,7 +201,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/ron/mybot/missing makeinfo
+MAKEINFO = makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
 PACKAGE = mybot
@@ -260,7 +261,7 @@ ACLOCAL_AMFLAGS =
 AM_CFLAGS = -g -Wall -DDEBUG
 mybot_SOURCES = config.c chanserv.c main.c parse.c sockets.c vars.c \
 		random.c sendq.c server_cmds.c functions.c signals.c \
- 		userlist.c
+ 		usercmds.c userlist.c
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
