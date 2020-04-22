@@ -1,6 +1,7 @@
 /* Commands from servers and users. */
 
 #include "includes.h"
+#include "prototypes.h"
 
 struct {
 	char	*cmd;
@@ -211,7 +212,7 @@ void		parse_who			(int fs, char *cmd, char *who, char *rest)
 	   Check for NULL is probably unecessary. */
 	nick = strtok (rest, " "); 
 	if (nick == NULL) return;
-	strncpy (MYNICK, nick, sizeof (MYNICK));
+	strncpy (MYNICK, nick, sizeof (MYNICK) - 1);
 	chan = strtok (NULL, " ");
 	if (chan == NULL) return;
 	if ((ptr = strtok (NULL, " ")) == NULL) return;
