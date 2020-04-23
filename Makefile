@@ -96,8 +96,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_mybot_OBJECTS = config.$(OBJEXT) chanserv.$(OBJEXT) main.$(OBJEXT) \
 	parse.$(OBJEXT) sockets.$(OBJEXT) vars.$(OBJEXT) \
 	random.$(OBJEXT) sendq.$(OBJEXT) server_cmds.$(OBJEXT) \
-	functions.$(OBJEXT) signals.$(OBJEXT) usercmds.$(OBJEXT) \
-	userlist.$(OBJEXT)
+	functions.$(OBJEXT) randq.$(OBJEXT) signals.$(OBJEXT) \
+	user_cmds.$(OBJEXT) userlist.$(OBJEXT)
 mybot_OBJECTS = $(am_mybot_OBJECTS)
 mybot_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_$(V))
@@ -205,7 +205,7 @@ MAKEINFO = makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
 PACKAGE = mybot
-PACKAGE_BUGREPORT = mircsux@gmail.com
+PACKAGE_BUGREPORT = rnrbbns1983@gmail.com
 PACKAGE_NAME = myBot
 PACKAGE_STRING = myBot 0.1
 PACKAGE_TARNAME = mybot
@@ -217,10 +217,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = 
 VERSION = 0.1
-abs_builddir = /home/ron/mybot
-abs_srcdir = /home/ron/mybot
-abs_top_builddir = /home/ron/mybot
-abs_top_srcdir = /home/ron/mybot
+abs_builddir = /home/Ronald/mybot
+abs_srcdir = /home/Ronald/mybot
+abs_top_builddir = /home/Ronald/mybot
+abs_top_srcdir = /home/Ronald/mybot
 ac_ct_CC = gcc
 am__leading_dot = .
 am__tar = $${TAR-tar} chof - "$$tardir"
@@ -237,7 +237,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/ron/mybot/install-sh
+install_sh = ${SHELL} /home/Ronald/mybot/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -249,6 +249,7 @@ pdfdir = ${docdir}
 prefix = /usr/local
 program_transform_name = s,x,x,
 psdir = ${docdir}
+runstatedir = ${localstatedir}/run
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 srcdir = .
@@ -260,8 +261,8 @@ top_srcdir = .
 ACLOCAL_AMFLAGS = 
 AM_CFLAGS = -g -Wall -DDEBUG
 mybot_SOURCES = config.c chanserv.c main.c parse.c sockets.c vars.c \
-		random.c sendq.c server_cmds.c functions.c signals.c \
- 		usercmds.c userlist.c
+		random.c sendq.c server_cmds.c functions.c randq.c signals.c \
+ 		user_cmds.c userlist.c
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am

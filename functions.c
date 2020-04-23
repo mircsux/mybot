@@ -1,6 +1,7 @@
 /* Functions */
 
 #include "includes.h"
+#include "prototypes.h"
 
 char	* strlwr (char *buf)
 {
@@ -47,25 +48,6 @@ int		stricmp (const char *s1, const char *s2)
         if (c < tolower (*s2))
                 return -1;
         return 1;
-}
-
-/* Returns number of people actively playing. */
-
-long	get_num_players (void)
-{
-	game_players 	*c = players;
-	long			i = 0;
-	
-	while (c)
-	{
-		if (c->playing == 1)
-			i++;
-			
-		c = c->next;
-		
-	}
-	
-	return (i);
 }
 
 char		*get_nick_from_who	(char *nick, char *who)

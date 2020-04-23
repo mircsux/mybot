@@ -3,6 +3,7 @@
    list that is kept in memory for further use. */
 
 #include "includes.h"
+#include "prototypes.h"
 
 
 void	add_iul_user		(char *chan, char *nick, char *uh, long tog)
@@ -30,10 +31,10 @@ void	add_iul_user		(char *chan, char *nick, char *uh, long tog)
 			if (stricmp (c->nick, nick) == 0 && stricmp (c->chan, chan) == 0)
 			{
 				/* If user is already here, overwrite him */
-				strncpy (c->chan, chan, sizeof (c->chan));
-				strncpy (c->uh, uh, sizeof (c->uh));
+				strncpy (c->chan, chan, sizeof (char *));
+				strncpy (c->uh, uh, sizeof (char *));
 				strlwr  (c->uh);
-				strncpy (c->nick, nick, sizeof (c->nick));
+				strncpy (c->nick, nick, sizeof (char *));
 				c->idle = time (NULL);
 				c->level = 0;
 				return;
@@ -56,10 +57,10 @@ void	add_iul_user		(char *chan, char *nick, char *uh, long tog)
 	memset (n, 0, sizeof (struct IUL));
     if (n != NULL)
     {
-		strncpy (n->chan, chan, sizeof (n->chan));
-        strncpy (n->uh, uh, sizeof (n->uh));
+		strncpy (n->chan, chan, sizeof (char *));
+        strncpy (n->uh, uh, sizeof (n->uh) - 1);
         strlwr (n->uh);
-        strncpy (n->nick, nick, sizeof (n->nick));
+        strncpy (n->nick, nick, sizeof (char *));
         n->idle = time (NULL);
         n->level = 0;
         n->next = iulhead;
@@ -129,10 +130,10 @@ void	add_isl_server 		(char *server, long port, char *pass)
 		return;
 	
 	/* Set server var, followed by others */
-	strncpy (isl->server, server, sizeof (isl->server));
+	strncpy (isl->server, server, sizeof (isl->server) - 1);
 	isl->port = port;
 	if (pass != NULL)
-		strncpy (isl->pass, pass, sizeof (isl->pass));
+		strncpy (isl->pass, pass, sizeof (isl->pass) - 1);
 	isl->next = islhead;
 	islhead = isl;
 	

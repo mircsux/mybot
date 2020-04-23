@@ -1,6 +1,7 @@
 /* Parse.c */
 
 #include "includes.h"
+#include "prototypes.h"
 
 void
 parse_server_message (int sockfd, fd_set * read_fds)
@@ -62,14 +63,17 @@ void		parse		(int sockfd, char	*line)
 	}
 	else
 	{
+		printf ("poopmaster #1\n");
 		cmd = strtok (rest, " ");
 		if (cmd == NULL)
 			return;
 		rest = strtok (NULL, "");
 		if (try_server_command(NO, cmd, who, rest) == 1)
 			return;
+
+		printf ("poopmaster #2\ncmd = %s rest = %s\n", cmd, rest);
 	}
-#ifdef		DEBUG
+#if	DEBUG == 1
 	printf ("cmd = %s, who = %s, rest = %s\n", cmd, who, rest);
 #endif	
 }

@@ -1,5 +1,5 @@
 AC_PREREQ(2.63)
-AC_INIT([myBot],[0.1],[mircsux@gmail.com])
+AC_INIT([myBot],[0.1],[rnrbbns1983@gmail.com])
 AC_COPYRIGHT([Copyright (c) 2016 Ron Robbins Jr.])
 AC_REVISION([$Revision])
 AC_CONFIG_SRCDIR([main.c])

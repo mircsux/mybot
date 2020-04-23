@@ -1,7 +1,7 @@
 /* Signals */
 
 #include "includes.h"
-
+#include "prototypes.h"
 
 void		sig_alrm (int unused)
 {
@@ -35,12 +35,12 @@ void		sig_alrm (int unused)
 	}
 	
 	RoundTimer += AIL;
-	if (RoundTimer >= 60)
+/*	if (RoundTimer >= 60)
 	{
 		RoundTimer = 0;
 		S ("PRIVMSG %s :Round_Timer = 0\n", config->BOTCHAN);
 	}
-	
+*/	
 
 }
 

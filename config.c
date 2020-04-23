@@ -1,6 +1,7 @@
 /* Stuff involving config files */
 
 #include "includes.h"
+#include "prototypes.h"
 
 #define		C_UNKNOWN		0
 #define		C_BOTNICK		1
@@ -36,17 +37,17 @@ int			do_config_set 		(const  int	opt, 	char *value)
 	{
 		case C_BOTNICK:
 		{
-			strncpy (config->BOTNICK, value, sizeof (config->BOTNICK));
+         		strncpy (config->BOTNICK, value, sizeof (char *));
 			return (1);
 		}
 		
 		case C_BOTUSER:
 		{
-			strncpy (config->BOTUSER, value, sizeof (config->BOTUSER));
+			strncpy (config->BOTUSER, value, sizeof (char *));
 			return (1);
 		}
 		case C_BOTNAME:
-		{	strncpy (config->BOTNAME, value, sizeof (config->BOTNAME));
+		{	strncpy (config->BOTNAME, value, sizeof (char *));
 			return (1);
 		}
 		case C_BOTSERV:
@@ -56,12 +57,12 @@ int			do_config_set 		(const  int	opt, 	char *value)
 		}
 		case C_SCOREFILE:
 		{
-			strncpy (config->SCORE_FILE, value, sizeof (config->SCORE_FILE));
+			strncpy (config->SCORE_FILE, value, sizeof (char *));
 			return (1);
 		}
 		case C_BOTCHAN:
 		{
-			strncpy (config->BOTCHAN, value, sizeof (config->BOTCHAN));
+			strncpy (config->BOTCHAN, value, sizeof (char *));
 			return (1);
 		}
 

@@ -96,8 +96,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_mybot_OBJECTS = config.$(OBJEXT) chanserv.$(OBJEXT) main.$(OBJEXT) \
 	parse.$(OBJEXT) sockets.$(OBJEXT) vars.$(OBJEXT) \
 	random.$(OBJEXT) sendq.$(OBJEXT) server_cmds.$(OBJEXT) \
-	functions.$(OBJEXT) signals.$(OBJEXT) usercmds.$(OBJEXT) \
-	userlist.$(OBJEXT)
+	functions.$(OBJEXT) randq.$(OBJEXT) signals.$(OBJEXT) \
+	user_cmds.$(OBJEXT) userlist.$(OBJEXT)
 mybot_OBJECTS = $(am_mybot_OBJECTS)
 mybot_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -249,6 +249,7 @@ pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
+runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -260,8 +261,8 @@ top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = 
 AM_CFLAGS = -g -Wall -DDEBUG
 mybot_SOURCES = config.c chanserv.c main.c parse.c sockets.c vars.c \
-		random.c sendq.c server_cmds.c functions.c signals.c \
- 		usercmds.c userlist.c
+		random.c sendq.c server_cmds.c functions.c randq.c signals.c \
+ 		user_cmds.c userlist.c
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am

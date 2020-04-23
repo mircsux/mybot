@@ -1,6 +1,7 @@
 /* Sockets */
 
 #include "includes.h"
+#include "prototypes.h"
 
 int 	readln 	(int sockfd)
 {

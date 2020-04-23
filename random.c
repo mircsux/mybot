@@ -1,6 +1,7 @@
 /* Random stuff */
 
 #include "includes.h"
+#include "prototypes.h"
 
 int		get_random_number 	(int max)
 {

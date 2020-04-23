@@ -1,6 +1,7 @@
 /* SendQ stuff */
 
 #include "includes.h"
+#include "prototypes.h"
 
 /**
  * Delete one or more elements from the sendq

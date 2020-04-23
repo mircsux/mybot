@@ -17,6 +17,7 @@ struct {
 	{ "MODE", 			parse_mode				},
 	{ "PART", 			parse_part				},
 	{ "PING", 			parse_ping				},
+	{ "PONG",			parse_pong				},
 	{ "PRIVMSG",		parse_privmsg			},
 	{  NULL	,			NULL					}
 };
@@ -123,6 +124,14 @@ void		parse_privmsg		(int from_server, char *cmd, char *who, char *rest)
 	if (try_user_command (command, chan, who, params) == 1)
 		return;
 		
+	printf ("poop\n");
+
+}
+
+void		parse_pong			(int from_server, char *cmd, char *who, char *rest)
+{
+		/* Parse ping */
+		LastInput = 0;
 }
 
 void		parse_ping			(int from_server, char *cmd, char *who, char *rest)

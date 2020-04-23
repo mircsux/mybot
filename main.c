@@ -1,7 +1,7 @@
 /*  Main() */
 
 #include "includes.h"
-
+#include "prototypes.h"
 
 int			main			(int argc, char **argv)
 {
@@ -42,9 +42,10 @@ int			main			(int argc, char **argv)
 		signal (SIGINT, sig_int);
 #endif
 
-	printf ("[*** Ron's IRC Bot %s ***]\r\n", PACKAGE_VERSION);
+	printf ("[*** Ron's IRC Bot %s ***]\r\n\n", PACKAGE_VERSION);
 	
 	/* Load config file. */
+	printf ("Debug is %s.\n", DEBUG==1?"YES":"NO");
 	printf ("Loading dat/setup.ini\n");
 	load_config ("dat/setup.ini");
 	
