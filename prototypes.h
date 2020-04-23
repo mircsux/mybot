@@ -40,6 +40,7 @@ void	parse_mode				(int, char *, char *, char *);
 void	parse_nick				(int, char *, char *, char *);
 void	parse_part				(int, char *, char *, char *);
 void	parse_ping				(int, char *, char *, char *);
+void 	parse_pong				(int, char *, char *, char *);
 void	parse_privmsg			(int, char *, char *, char *);
 void	parse_who				(int, char *, char *, char *);
 void	parse_server_message	(int, fd_set *);
@@ -62,7 +63,7 @@ extern	time_t	Start_Time;
 extern	char	HOSTNAME		[STRING_SHORT];
 extern	char	VHOST			[STRING_SHORT];
 extern	char	MYNICK			[STRING_SHORT];
-extern	char	myline			[STRING_SHORT];
+extern	char	myline			[STRING_LONG];
 extern	char	*my_uptime		(char	*, time_t);
 
 extern	int		alarmed;
@@ -75,7 +76,7 @@ extern	long	timer;		/* Internal timer counter */
 
 extern	struct sendq
 {
-        char data[STRING_SHORT];
+        char data [STRING_LONG];
         struct sendq *next;
 }		*sendqhead, *sendqtail;
 
@@ -86,12 +87,13 @@ struct 		ISL
 		char		pass	[STRING_SHORT];
 		char		nick 	[STRING_SHORT];
 		char		userid	[STRING_SHORT];
+		char		cmdchar [STRING_SHORT];
 		long		port;
 		long		contime;
-		int			sockfd;
+		int		sockfd;
 		int 		alarmed;
 		struct		timeval	timeout;
-		int			Connected;
+		int		Connected;
 		char		LINE	[STRING_LONG];
 		struct		ISL		*next;
 		
@@ -108,34 +110,6 @@ struct		IUL
 	struct	IUL *next;
 }   *iulhead;
 
-typedef struct player_dice
-{
-	char	dstr  			[STRING_LONG];  	/* Dice in string */
-	long	dice;
-	long	num;
-	
-	struct player_dice	*next;
-}	dice;
-
-
-typedef		struct	player_struct
-{
-	char	nick	[STRING_LONG];
-	long	score;
-	long	all_time_score;
-	long 	rollnum;
-	long	rolltotal;
-	long	playing;
-	long	last_roll_time;
-	int		my_turn;
-	int		keep_since_roll;
-	int		times_kept;
-	
-	int		dice	[6];	/* This roll */
-	int		kept	[6];	/* Kept dice */
-	struct 	player_struct *next;
-}  	game_players;
-
 typedef	struct	config_struct	{
 	char	BOTNICK 		[STRING_SHORT];		/* My nickname */
 	char	BOTCHAN			[STRING_LONG];		/* My channels */
@@ -148,9 +122,3 @@ typedef	struct	config_struct	{
 
 
 extern	Config *config;
-extern	game_players *players;
-
-/* Declare this here at the end, since we need the "dice" declaration
-   to any sense of this first */
-int		add_dice				(char *, dice *, long);
-long	count_dice				(game_players *, long, long);
