@@ -1,5 +1,6 @@
 /* Vars */
 #include "includes.h"
+#include "prototypes.h"
 
 
 long	CONNECT_WAIT_TIMEOUT	= 10;
@@ -14,7 +15,7 @@ char	HOSTNAME[STRING_SHORT]	= "bifrost.ca.us.dal.net";
 char	VHOST	[STRING_SHORT]	= "0";
 char	MYNICK	[STRING_SHORT] 	= "mybot";
 
-char	myline		[STRING_SHORT]  = { "\0" };
+char	myline		[STRING_LONG]  = { "\0" };
 int		alarmed					= 0;
 int		sockfd					= 0;
 int		PORT					= 6667;
@@ -27,4 +28,3 @@ struct	IUL		*iulhead = NULL;
 struct	ISL		*islhead = NULL;
 
 Config  	*config = NULL;
-game_players	*players = NULL;
