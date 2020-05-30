@@ -19,61 +19,44 @@ parse_server_message (int sockfd, fd_set * read_fds)
 		}
 }
 
-void		parse		(int sockfd, char	*line)
-{	
+void		parse(int sockfd, char	*line)
+{
 	char	*who = NULL;
 	char	*cmd = NULL;
 	char	*rest = NULL;
-	int		from_server = 0;
-	
-	stripline (line); /* Strip junk we don't need */
+	int		from_server = YES;
+
+	printf("line = %s\n", line);
+
+	stripline(line); /* Strip junk we don't need */
 
 	/* If we have nothing for the first token?? wtf? return. */
-	if ((who = strtok (line, " ")) == NULL)
+	if ((who = strtok(line, " ")) == NULL)
 		return;
-	
-	/* Strip the leading ':' off the sender. */
-	if (*who == ':')
-		who++;
-	
-	rest = strtok (NULL, "");
-	if (rest == NULL)	return;
-	
-	from_server = YES;
-	/* Run through the server command structure in case this 
-	 * is a command from the server. */
-	
-	 if (try_server_command(from_server, who, who, rest) == 1)
-		return;
-	
-	/* If this check is true, the message came from either
-	   ourselves or a server. */
-	if (strstr (who, "!") == NULL)
-	{
-		cmd = strtok (rest, " ");
-		if (cmd == NULL)
-			return;
-		rest = strtok (NULL, "");
-		if (strstr (who, ".") == NULL)
-			from_server = NO;
-		else from_server = YES;
-		
-		if (try_server_command(from_server, cmd, who, rest) == 1)
-		return;
-	}
-	else
-	{
-		printf ("poopmaster #1\n");
-		cmd = strtok (rest, " ");
-		if (cmd == NULL)
-			return;
-		rest = strtok (NULL, "");
-		if (try_server_command(NO, cmd, who, rest) == 1)
-			return;
 
-		printf ("poopmaster #2\ncmd = %s rest = %s\n", cmd, rest);
+	/* Strip the leading ':' off the sender. */
+	if (*who == ':')	who++;
+
+	if ((rest = strtok(NULL, "")) == NULL)
+		return;
+	
+	if ((cmd = strtok(rest, " ")) == NULL)
+		return;
+	
+	if (strstr(who, "!") == NULL)
+		from_server = YES;
+
+	if ((rest = strtok(NULL, "")) == NULL)
+		return;
+
+	/* Check and see if we can execute this message as a server
+	   command, drop through if not. */
+	if (from_server == YES)
+	{
+	   	 if (try_server_command(from_server, cmd, who, rest) == 1)
+			return;
 	}
-#if	DEBUG == 1
-	printf ("cmd = %s, who = %s, rest = %s\n", cmd, who, rest);
-#endif	
+	
+	/* Not from server, or command not found? */
+
 }

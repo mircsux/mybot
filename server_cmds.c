@@ -70,15 +70,19 @@ int		try_server_command		(int from_server, char *cmd, char *who, char *rest)
 {
 	int		i = 0;
 
-	for (i = 0; server_command[i].cmd; i++)
-	 {
-		if (stricmp (cmd, server_command[i].cmd) == 0)
-		{
+	if (from_server == YES)
+	{
+		for (i = 0; server_command[i].cmd; i++)
+	 	{
+			if (stricmp (cmd, server_command[i].cmd) == 0)
+			{
 				server_command[i].func (from_server, cmd, who, rest);
 				/* Success */
 				return (1);
-		}
-	 }
+			}
+		 }
+	}
+	
 	 /* No match */
 	 return (0);
 }
@@ -95,11 +99,12 @@ void		parse_privmsg		(int from_server, char *cmd, char *who, char *rest)
 	char *chan = NULL;
 	char *command = NULL;
 	char	*params = NULL;
-	
+	char  OrigComannd [STRING_LONG] = { "\0" };
+
 	if ((chan = strtok (rest, " ")) == NULL)
 		return;
-
-	/* Make sure we are dealing with a message from a CHANNEL USER. */
+	printf("trapped privmsg\n");
+	/* Make sure we are dealing with a message from a CHANNEL. */
 	if (*chan != '#')
 		return;
 
@@ -107,30 +112,30 @@ void		parse_privmsg		(int from_server, char *cmd, char *who, char *rest)
 		return;
 
 	/* Strip the leading ':' character if there is one. */
-	if (*command == ':')
+	if (*command == ':' || *command == '!')
 		command++;
 		
-	/* Check if there is a command character present, only act if so. */
-	if (*command != '!')
-		return;
-	
-	command++;
-	
 	/* Propogate extra parameters or text. If this ends up being empty, 
 	   don't worry about. Some user commands require no parameters. */
 	params = strtok (NULL, "");
 
+	printf("Trying user command.\n");
 	/* Check if this is a valid user command and act appropriately. */
 	if (try_user_command (command, chan, who, params) == 1)
 		return;
 		
-	printf ("poop\n");
+	
+    /* Here I think we should realize this is something talking */
+
+	printf("%s is talking in a room.\n", who);
 
 }
 
 void		parse_pong			(int from_server, char *cmd, char *who, char *rest)
 {
-		/* Parse ping */
+		/* If we are on a channel that isn't busy, this may be the only 
+		   message seen for awhile. This fixes false ping timeout issues. */
+
 		LastInput = 0;
 }
 
@@ -138,9 +143,7 @@ void		parse_ping			(int from_server, char *cmd, char *who, char *rest)
 {
 		/* Return fire with a pong. */
 
-		if (*rest == ':')
-			rest++;
-		S ("PONG :%s\n", rest);
+		S ("PONG %s\n", rest);
 
 }
 
@@ -156,7 +159,8 @@ void		parse_error			(int fs, char *cmd, char *who, char *rest)
 }
 void		parse_nick			(int fs, char *cmd, char *who, char *rest)
 {
-	/* printf ("hi(nick)\n"); */
+	/* Change the internet user list for this */
+
 }
 
 void		parse_001			(int fs, char *cmd, char *who, char *rest)

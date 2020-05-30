@@ -72,6 +72,10 @@ int			main			(int argc, char **argv)
 			case -1:
 				if (!alarmed)
 				{
+					printf ("\r");
+					int c = 0;
+					c = getchar ();
+					printf ("%d");
 					sleep (RECHECK);
 				}   
 				else 

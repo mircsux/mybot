@@ -5,6 +5,5 @@
 
 void	do_chanserv		(char *stuff)
 {
-	
-	
+	printf("stuff = %s\n", stuff); 
 }

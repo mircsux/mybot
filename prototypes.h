@@ -80,6 +80,18 @@ extern	struct sendq
         struct sendq *next;
 }		*sendqhead, *sendqtail;
 
+/* Internal User List */
+struct		IUL
+{
+	char	server[STRING_SHORT]; /* Server we're on */
+	char	chan[STRING_SHORT]; /* User's channel */
+	char	nick[STRING_SHORT]; /* User's nickname */
+	char	uh[STRING_SHORT]; /* User's hostmask */
+	int		level;						/* Level user authed, if authed */
+	long	idle;
+	struct	IUL *next;
+}   *iulhead;
+
 /* Internal Server List */
 struct 		ISL	
 {
@@ -98,17 +110,6 @@ struct 		ISL
 		struct		ISL		*next;
 		
 }  *islhead;
-
-/* Internal User List */
-struct		IUL
-{
-	char	chan		[STRING_SHORT]; /* User's channel */
-	char	nick		[STRING_SHORT]; /* User's nickname */
-	char	uh			[STRING_SHORT]; /* User's hostmask */
-	int		level;						/* Level user authed, if authed */
-	long	idle;
-	struct	IUL *next;
-}   *iulhead;
 
 typedef	struct	config_struct	{
 	char	BOTNICK 		[STRING_SHORT];		/* My nickname */

@@ -93,11 +93,12 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_mybot_OBJECTS = config.$(OBJEXT) chanserv.$(OBJEXT) main.$(OBJEXT) \
-	parse.$(OBJEXT) sockets.$(OBJEXT) vars.$(OBJEXT) \
-	random.$(OBJEXT) sendq.$(OBJEXT) server_cmds.$(OBJEXT) \
-	functions.$(OBJEXT) randq.$(OBJEXT) signals.$(OBJEXT) \
-	user_cmds.$(OBJEXT) userlist.$(OBJEXT)
+am_mybot_OBJECTS = chanserv.$(OBJEXT) config.$(OBJEXT) \
+	functions.$(OBJEXT) input.$(OBJEXT) main.$(OBJEXT) \
+	parse.$(OBJEXT) random.$(OBJEXT) randq.$(OBJEXT) \
+	sendq.$(OBJEXT) server_cmds.$(OBJEXT) signals.$(OBJEXT) \
+	sockets.$(OBJEXT) vars.$(OBJEXT) user_cmds.$(OBJEXT) \
+	userlist.$(OBJEXT)
 mybot_OBJECTS = $(am_mybot_OBJECTS)
 mybot_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -260,9 +261,9 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = 
 AM_CFLAGS = -g -Wall -DDEBUG
-mybot_SOURCES = config.c chanserv.c main.c parse.c sockets.c vars.c \
-		random.c sendq.c server_cmds.c functions.c randq.c signals.c \
- 		user_cmds.c userlist.c
+mybot_SOURCES = chanserv.c config.c functions.c input.c main.c parse.c \
+                random.c randq.c sendq.c server_cmds.c signals.c sockets.c \
+                vars.c user_cmds.c userlist.c
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
